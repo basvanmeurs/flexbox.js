@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "lib": ["esnext", "dom", "es2018.promise"]
+  },
+  "include": ["src", "tests"],
+  "exclude": ["node_modules"]
+}
