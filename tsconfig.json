@@ -3,10 +3,11 @@
     "target": "es2015",
     "module": "commonjs",
     "declaration": true,
+    "sourceMap": true,
     "outDir": "./lib",
     "strict": true,
     "lib": ["esnext", "dom", "es2018.promise"]
   },
-  "include": ["src", "tests"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
