@@ -24,6 +24,7 @@ root.flex.alignItems = "stretch";
 const item = new FlexTarget();
 item.w = 100;
 item.h = 100;
+root.addChild(item);
 const item2 = new FlexTarget();
 item2.w = 50;
 item2.h = 50;
