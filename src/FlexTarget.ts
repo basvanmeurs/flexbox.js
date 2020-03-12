@@ -48,11 +48,11 @@ export default class FlexTarget implements FlexSubject {
   }
 
   get flex() {
-    return this._layout ? this._layout.flex : undefined;
+    return this.layout.flex;
   }
 
   get flexItem() {
-    return this._layout ? this._layout.flexItem : null;
+    return this.layout.flexItem;
   }
 
   private ensureLayout() {
