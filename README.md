@@ -53,7 +53,7 @@ changes and will only update the parts that actually need to be updated.
 
 ## FlexTarget properties
 | Property | type | CSS equivalent | Notes |
-| -------- | ---- | -------------- |:-----:|
+| -------- | ---- | -------------- |-----|
 | `x` | `number,(parentW: number => number)` |  | Offset |
 | `y` | `number,(parentH: number => number)` |  |  |
 | `w` | `number,(parentW: number => number)` |  | Size |
@@ -91,7 +91,7 @@ layout width or height. This allows the user to use relative and calculated size
 ## FlexContainer properties
 
 | Property | type | CSS equivalent | Notes |
-| -------- | ---- | -------------- |:-----:|
+| -------- | ---- | -------------- |-----|
 | `enabled` | `true,false` | | |
 | `direction`| `'row','row-reverse','column','column-reverse'` | `flex-direction` | |
 | `wrap` | `true,false` | `flex-wrap` | `wrap-reverse` is not supported |
@@ -107,7 +107,7 @@ layout width or height. This allows the user to use relative and calculated size
 ## FlexItem properties
 
 | Property | type | CSS equivalent | Notes |
-| -------- | ---- | -------------- |:-----:|
+| -------- | ---- | -------------- |----|
 | `enabled` | `true,false` | | If disabled, this item will not affect the flex layout and will be positioned absolutely |
 | `grow`| `number` | `flex-grow` | |
 | `shrink`| `number` | `flex-shrink` | The default value is 0 (in CSS it defaults to 1) |
