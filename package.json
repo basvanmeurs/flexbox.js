@@ -1,8 +1,8 @@
 {
   "name": "flexbox.js",
-  "version": "1.0.1",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "version": "1.0.2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "description": "Typescript flexbox-based layout engine",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --require ts-node/register tests/test.*.ts",
