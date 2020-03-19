@@ -1,6 +1,6 @@
 {
   "name": "flexbox.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Typescript flexbox-based layout engine",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --require ts-node/register tests/test.*.ts",
