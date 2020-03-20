@@ -13,6 +13,7 @@ This package contains the FlexTarget class, which can be used directly to constr
 ## Create flex tree
 
 ```javascript
+import FlexTarget from 'flexbox.js/dist/FlexTarget';
 const root = new FlexTarget();
 root.flex.enabled = true;
 root.flex.direction = "column";
