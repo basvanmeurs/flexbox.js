@@ -5,160 +5,160 @@ import { SpacingMode } from './layout/spacing';
 export type AlignItemsMode = 'flex-start' | 'flex-end' | 'center' | 'stretch';
 
 export type JustifyContentMode =
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'space-between'
-  | 'space-around'
-  | 'space-evenly';
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly';
 
 export type AlignContentMode = SpacingMode;
 
 export type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
 export default class FlexContainer {
-  public horizontal: boolean = true;
-  public reverse: boolean = false;
+    public horizontal: boolean = true;
+    public reverse: boolean = false;
 
-  public layout: Layout = new Layout(this);
-  private _wrap: boolean = false;
-  private _alignItems: AlignItemsMode = 'stretch';
-  private _justifyContent: JustifyContentMode = 'flex-start';
-  private _alignContent: AlignContentMode = 'flex-start';
+    public layout: Layout = new Layout(this);
+    private _wrap: boolean = false;
+    private _alignItems: AlignItemsMode = 'stretch';
+    private _justifyContent: JustifyContentMode = 'flex-start';
+    private _alignContent: AlignContentMode = 'flex-start';
 
-  private _paddingLeft: number = 0;
-  private _paddingTop: number = 0;
-  private _paddingRight: number = 0;
-  private _paddingBottom: number = 0;
+    private _paddingLeft: number = 0;
+    private _paddingTop: number = 0;
+    private _paddingRight: number = 0;
+    private _paddingBottom: number = 0;
 
-  private _enabled: boolean = false;
+    private _enabled: boolean = false;
 
-  constructor(public readonly node: FlexNode) {}
+    constructor(public readonly node: FlexNode) {}
 
-  get enabled() {
-    return this._enabled;
-  }
-
-  set enabled(v: boolean) {
-    if (v !== this._enabled) {
-      this._enabled = v;
-      this.node.setFlexEnabled(v);
+    get enabled() {
+        return this._enabled;
     }
-  }
 
-  get direction(): FlexDirection {
-    if (this.horizontal) {
-      return this.reverse ? 'row-reverse' : 'row';
-    } else {
-      return this.reverse ? 'column-reverse' : 'column';
+    set enabled(v: boolean) {
+        if (v !== this._enabled) {
+            this._enabled = v;
+            this.node.setFlexEnabled(v);
+        }
     }
-  }
 
-  set direction(f: FlexDirection) {
-    if (this.direction === f) return;
+    get direction(): FlexDirection {
+        if (this.horizontal) {
+            return this.reverse ? 'row-reverse' : 'row';
+        } else {
+            return this.reverse ? 'column-reverse' : 'column';
+        }
+    }
 
-    this.horizontal = f === 'row' || f === 'row-reverse';
-    this.reverse = f === 'row-reverse' || f === 'column-reverse';
+    set direction(f: FlexDirection) {
+        if (this.direction === f) return;
 
-    this.changedContents();
-  }
+        this.horizontal = f === 'row' || f === 'row-reverse';
+        this.reverse = f === 'row-reverse' || f === 'column-reverse';
 
-  set wrap(v) {
-    this._wrap = v;
-    this.changedContents();
-  }
+        this.changedContents();
+    }
 
-  get wrap() {
-    return this._wrap;
-  }
+    set wrap(v) {
+        this._wrap = v;
+        this.changedContents();
+    }
 
-  get alignItems() {
-    return this._alignItems;
-  }
+    get wrap() {
+        return this._wrap;
+    }
 
-  set alignItems(v: AlignItemsMode) {
-    if (this._alignItems === v) return;
+    get alignItems() {
+        return this._alignItems;
+    }
 
-    this._alignItems = v;
+    set alignItems(v: AlignItemsMode) {
+        if (this._alignItems === v) return;
 
-    this.changedContents();
-  }
+        this._alignItems = v;
 
-  get alignContent() {
-    return this._alignContent;
-  }
+        this.changedContents();
+    }
 
-  set alignContent(v: AlignContentMode) {
-    if (this._alignContent === v) return;
-    this._alignContent = v;
+    get alignContent() {
+        return this._alignContent;
+    }
 
-    this.changedContents();
-  }
+    set alignContent(v: AlignContentMode) {
+        if (this._alignContent === v) return;
+        this._alignContent = v;
 
-  get justifyContent() {
-    return this._justifyContent;
-  }
+        this.changedContents();
+    }
 
-  set justifyContent(v: JustifyContentMode) {
-    if (this._justifyContent === v) return;
+    get justifyContent() {
+        return this._justifyContent;
+    }
 
-    this._justifyContent = v;
+    set justifyContent(v: JustifyContentMode) {
+        if (this._justifyContent === v) return;
 
-    this.changedContents();
-  }
+        this._justifyContent = v;
 
-  set padding(v) {
-    this.paddingLeft = v;
-    this.paddingTop = v;
-    this.paddingRight = v;
-    this.paddingBottom = v;
-  }
+        this.changedContents();
+    }
 
-  get padding() {
-    return this.paddingLeft;
-  }
+    set padding(v) {
+        this.paddingLeft = v;
+        this.paddingTop = v;
+        this.paddingRight = v;
+        this.paddingBottom = v;
+    }
 
-  set paddingLeft(v) {
-    this._paddingLeft = v;
-    this.changedDimensions();
-  }
+    get padding() {
+        return this.paddingLeft;
+    }
 
-  get paddingLeft() {
-    return this._paddingLeft;
-  }
+    set paddingLeft(v) {
+        this._paddingLeft = v;
+        this.changedDimensions();
+    }
 
-  set paddingTop(v) {
-    this._paddingTop = v;
-    this.changedDimensions();
-  }
+    get paddingLeft() {
+        return this._paddingLeft;
+    }
 
-  get paddingTop() {
-    return this._paddingTop;
-  }
+    set paddingTop(v) {
+        this._paddingTop = v;
+        this.changedDimensions();
+    }
 
-  set paddingRight(v) {
-    this._paddingRight = v;
-    this.changedDimensions();
-  }
+    get paddingTop() {
+        return this._paddingTop;
+    }
 
-  get paddingRight() {
-    return this._paddingRight;
-  }
+    set paddingRight(v) {
+        this._paddingRight = v;
+        this.changedDimensions();
+    }
 
-  set paddingBottom(v) {
-    this._paddingBottom = v;
-    this.changedDimensions();
-  }
+    get paddingRight() {
+        return this._paddingRight;
+    }
 
-  get paddingBottom() {
-    return this._paddingBottom;
-  }
+    set paddingBottom(v) {
+        this._paddingBottom = v;
+        this.changedDimensions();
+    }
 
-  private changedDimensions() {
-    this.node.forceLayout();
-  }
+    get paddingBottom() {
+        return this._paddingBottom;
+    }
 
-  changedContents() {
-    this.node.changedContents();
-  }
+    private changedDimensions() {
+        this.node.forceLayout();
+    }
+
+    changedContents() {
+        this.node.changedContents();
+    }
 }
