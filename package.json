@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "apache",
   "devDependencies": {
     "@types/chai": "^4.2.10",
     "@types/mocha": "^7.0.2",
