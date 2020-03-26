@@ -1,36 +1,38 @@
 {
-  "name": "flexbox.js",
-  "version": "1.0.6",
-  "description": "Typescript flexbox-based layout engine",
-  "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --require ts-node/register tests/test.*.ts",
-    "build": "tsc",
-    "lint": "eslint --fix -c .eslintrc.js **/*.ts",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test",
-    "version": "npm run lint"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "apache",
-  "devDependencies": {
-    "@types/chai": "^4.2.10",
-    "@types/mocha": "^7.0.2",
-    "@types/sinon": "^7.5.2",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
-    "chai": "^4.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "mocha": "^7.1.0",
-    "prettier": "^1.19.1",
-    "sinon": "^9.0.1",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.3"
-  },
-  "files": [
-    "dist/**/*",
-    "src/**/*"
-  ]
+    "name": "flexbox.js",
+    "description": "Typescript flexbox-based layout engine",
+    "version": "1.0.6",
+    "author": "Planning.nl, Bas van Meurs",
+    "bugs": {
+        "url": "https://github.com/Planning-nl/flexbox.js/issues",
+        "email": "support@planning.nl"
+    },
+    "devDependencies": {
+        "@planning.nl/eslint-config": "^1.0.0",
+        "@types/chai": "^4.2.10",
+        "@types/mocha": "^7.0.2",
+        "@types/sinon": "^7.5.2",
+        "chai": "^4.2.0",
+        "eslint": "^6.8.0",
+        "mocha": "^7.1.0",
+        "sinon": "^9.0.1",
+        "ts-node": "^8.6.2",
+        "typescript": "^3.8.3"
+    },
+    "files": [
+        "dist/**/*",
+        "src/**/*"
+    ],
+    "homepage": "https://github.com/Planning-nl/flexbox.js#readme",
+    "keywords": [],
+    "license": "apache",
+    "repository": "github:Planning-nl/flexbox.js",
+    "scripts": {
+        "build": "tsc",
+        "lint": "eslint --fix -c .eslintrc.js **/*.ts",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm test",
+        "test": "./node_modules/mocha/bin/mocha --require ts-node/register tests/test.*.ts",
+        "version": "npm run lint"
+    }
 }
