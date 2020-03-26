@@ -1,5 +1,5 @@
-import getSpacing from './spacing';
-import FlexLayouter from './FlexLayouter';
+import getSpacing from "./spacing";
+import FlexLayouter from "./FlexLayouter";
 
 export default class ContentAligner {
     private totalCrossAxisSize: number = 0;
@@ -26,7 +26,7 @@ export default class ContentAligner {
 
         const mode = this.layout.container.alignContent;
         let growSize = 0;
-        if (mode === 'stretch' && lines.length && remainingSpace > 0) {
+        if (mode === "stretch" && lines.length && remainingSpace > 0) {
             growSize = remainingSpace / lines.length;
         }
 

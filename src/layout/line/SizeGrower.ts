@@ -1,4 +1,4 @@
-import LineLayout from './LineLayout';
+import LineLayout from "./LineLayout";
 
 export default class SizeGrower {
     private amountRemaining: number = 0;

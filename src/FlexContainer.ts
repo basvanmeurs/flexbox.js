@@ -1,20 +1,20 @@
-import Layout from './layout/FlexLayouter';
-import FlexNode from './FlexNode';
-import { SpacingMode } from './layout/spacing';
+import Layout from "./layout/FlexLayouter";
+import FlexNode from "./FlexNode";
+import { SpacingMode } from "./layout/spacing";
 
-export type AlignItemsMode = 'flex-start' | 'flex-end' | 'center' | 'stretch';
+export type AlignItemsMode = "flex-start" | "flex-end" | "center" | "stretch";
 
 export type JustifyContentMode =
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly';
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
 
 export type AlignContentMode = SpacingMode;
 
-export type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+export type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
 
 export default class FlexContainer {
     public horizontal: boolean = true;
@@ -22,9 +22,9 @@ export default class FlexContainer {
 
     public layout: Layout = new Layout(this);
     private _wrap: boolean = false;
-    private _alignItems: AlignItemsMode = 'stretch';
-    private _justifyContent: JustifyContentMode = 'flex-start';
-    private _alignContent: AlignContentMode = 'flex-start';
+    private _alignItems: AlignItemsMode = "stretch";
+    private _justifyContent: JustifyContentMode = "flex-start";
+    private _alignContent: AlignContentMode = "flex-start";
 
     private _paddingLeft: number = 0;
     private _paddingTop: number = 0;
@@ -48,17 +48,17 @@ export default class FlexContainer {
 
     get direction(): FlexDirection {
         if (this.horizontal) {
-            return this.reverse ? 'row-reverse' : 'row';
+            return this.reverse ? "row-reverse" : "row";
         } else {
-            return this.reverse ? 'column-reverse' : 'column';
+            return this.reverse ? "column-reverse" : "column";
         }
     }
 
     set direction(f: FlexDirection) {
         if (this.direction === f) return;
 
-        this.horizontal = f === 'row' || f === 'row-reverse';
-        this.reverse = f === 'row-reverse' || f === 'column-reverse';
+        this.horizontal = f === "row" || f === "row-reverse";
+        this.reverse = f === "row-reverse" || f === "column-reverse";
 
         this.changedContents();
     }

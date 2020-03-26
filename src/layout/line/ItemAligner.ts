@@ -1,7 +1,7 @@
-import LineLayout from './LineLayout';
-import { AlignItemsMode } from '../../FlexContainer';
-import FlexNode from '../../FlexNode';
-import FlexItem from '../../FlexItem';
+import LineLayout from "./LineLayout";
+import { AlignItemsMode } from "../../FlexContainer";
+import FlexNode from "../../FlexNode";
+import FlexItem from "../../FlexItem";
 
 export default class ItemAligner {
     private crossAxisLayoutSize: number = 0;
@@ -49,11 +49,11 @@ export default class ItemAligner {
         const flexItem = item.flexItem!;
         let align = flexItem.alignSelf || this.alignItemsSetting;
 
-        if (align === 'stretch' && this.preventStretch(flexItem)) {
-            align = 'flex-start';
+        if (align === "stretch" && this.preventStretch(flexItem)) {
+            align = "flex-start";
         }
 
-        if (align !== 'center' && !this.isCrossAxisFitToContents) {
+        if (align !== "center" && !this.isCrossAxisFitToContents) {
             if (flexItem.hasRelCrossAxisSize()) {
                 // As cross axis size might have changed, we need to recalc the relative flex item's size.
                 flexItem.resetCrossAxisLayoutSize();
@@ -61,16 +61,16 @@ export default class ItemAligner {
         }
 
         switch (align) {
-            case 'flex-start':
+            case "flex-start":
                 this._alignItemFlexStart(flexItem);
                 break;
-            case 'flex-end':
+            case "flex-end":
                 this._alignItemFlexEnd(flexItem);
                 break;
-            case 'center':
+            case "center":
                 this._alignItemFlexCenter(flexItem);
                 break;
-            case 'stretch':
+            case "stretch":
                 this._alignItemStretch(flexItem);
                 break;
         }
@@ -126,7 +126,7 @@ export default class ItemAligner {
 
     private preventStretch(flexItem: FlexItem) {
         const hasFixedCrossAxisSize = flexItem.hasFixedCrossAxisSize();
-        const forceStretch = flexItem.alignSelf === 'stretch';
+        const forceStretch = flexItem.alignSelf === "stretch";
         return hasFixedCrossAxisSize && !forceStretch;
     }
 }

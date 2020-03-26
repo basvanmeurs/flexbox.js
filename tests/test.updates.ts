@@ -1,10 +1,10 @@
-import FlexTestUtils from './src/FlexTestUtils';
-import Target from './src/Target';
+import FlexTestUtils from "./src/FlexTestUtils";
+import Target from "./src/Target";
 
 const flexTestUtils = new FlexTestUtils();
 
-describe('layout', () => {
-    describe('update', function() {
+describe("layout", () => {
+    describe("update", function () {
         this.timeout(0);
 
         let root: any;
@@ -14,14 +14,14 @@ describe('layout', () => {
             flexTestUtils.addAnnotatedUpdateTest(getRoot, name, setup);
         };
 
-        describe('deferred/smart updates', () => {
+        describe("deferred/smart updates", () => {
             let subject: any;
             let sibling: any;
             before(() => {
                 const structure = {
                     w: 500,
                     h: 500,
-                    flex: { enabled: true, direction: 'column', padding: 5 },
+                    flex: { enabled: true, direction: "column", padding: 5 },
                     r: [0, 0, 510, 510],
                     children: [
                         {
@@ -35,7 +35,7 @@ describe('layout', () => {
                         {
                             w: 100,
                             h: 100,
-                            flex: { enabled: true, direction: 'column' },
+                            flex: { enabled: true, direction: "column" },
                             subject: true,
                             flexItem: { grow: 2 },
                             r: [5, 171.67, 100, 333.33],
@@ -50,23 +50,23 @@ describe('layout', () => {
                 subject = root.children[1];
             });
 
-            describe('initial', () => {
-                it('layouts', () => {
+            describe("initial", () => {
+                it("layouts", () => {
                     return flexTestUtils.validateAnnotatedFlex(root);
                 });
             });
 
-            addUpdateTest('no changes', () => {
+            addUpdateTest("no changes", () => {
                 return { layouts: [] };
             });
 
-            addUpdateTest('update from within fixed-size container', () => {
+            addUpdateTest("update from within fixed-size container", () => {
                 subject.children[0].w = 100;
                 subject.children[0].r[2] = 100;
                 return { layouts: [subject] };
             });
 
-            addUpdateTest('change dims of fixed-size container', () => {
+            addUpdateTest("change dims of fixed-size container", () => {
                 subject.h = 130;
                 subject.r[1] = 161.67;
                 subject.r[3] = 343.33;
@@ -75,20 +75,20 @@ describe('layout', () => {
                 return { layouts: [root, sibling, sibling, subject] };
             });
 
-            addUpdateTest('change from root', () => {
+            addUpdateTest("change from root", () => {
                 root.w = 600;
                 root.r[2] = 610;
                 sibling.r[2] = 600;
                 return { layouts: [root, sibling] };
             });
 
-            addUpdateTest('change to dynamic width', () => {
+            addUpdateTest("change to dynamic width", () => {
                 subject.w = 0;
                 subject.r[2] = 600;
                 return { layouts: [root, subject, subject] };
             });
 
-            addUpdateTest('change from root', () => {
+            addUpdateTest("change from root", () => {
                 root.w = 700;
                 root.r[2] = 710;
                 sibling.r[2] = 700;
@@ -96,13 +96,13 @@ describe('layout', () => {
                 return { layouts: [root, sibling, subject] };
             });
 
-            addUpdateTest('change offset of root', () => {
+            addUpdateTest("change offset of root", () => {
                 root.x = 200;
                 root.r[0] = 200;
                 return { layouts: [] };
             });
 
-            addUpdateTest('change offset of subject', () => {
+            addUpdateTest("change offset of subject", () => {
                 subject.x = 2;
                 subject.y = 2;
                 subject.r[0] += 2;
@@ -111,7 +111,7 @@ describe('layout', () => {
             });
         });
 
-        describe('mutations', () => {
+        describe("mutations", () => {
             before(() => {
                 const structure = {
                     children: [
@@ -122,12 +122,12 @@ describe('layout', () => {
                             r: [0, 0, 557, 505],
                             children: [
                                 {
-                                    flex: { enabled: true, padding: 100, alignItems: 'flex-start' },
+                                    flex: { enabled: true, padding: 100, alignItems: "flex-start" },
                                     w: 500,
                                     r: [7, 5, 700, 500],
                                     children: [
                                         {
-                                            flex: { enabled: true, direction: 'column-reverse', paddingLeft: 50 },
+                                            flex: { enabled: true, direction: "column-reverse", paddingLeft: 50 },
                                             h: 400,
                                             w: 200,
                                             r: [100, 100, 150, 400],
@@ -172,58 +172,58 @@ describe('layout', () => {
                 root.update();
             });
 
-            describe('initial', () => {
-                it('layouts', () => {
+            describe("initial", () => {
+                it("layouts", () => {
                     return flexTestUtils.validateAnnotatedFlex(root);
                 });
             });
 
-            addUpdateTest('update tree root dimensions', () => {
+            addUpdateTest("update tree root dimensions", () => {
                 root.children[0].w = 1800;
                 root.children[0].r[2] = 1807;
             });
 
-            addUpdateTest('disable shrinking', () => {
+            addUpdateTest("disable shrinking", () => {
                 root.children[0].children[0].children[0].flexItem.shrink = 0;
                 root.children[0].children[0].children[0].r[2] = 250;
                 root.children[0].children[0].children[1].r[0] = 350;
                 root.children[0].children[0].children[2].r[0] = 470;
             });
 
-            addUpdateTest('update sub grow', () => {
+            addUpdateTest("update sub grow", () => {
                 root.children[0].children[0].flexItem.grow = 2;
                 root.children[0].children[0].r[2] = 1800;
                 root.children[0].children[1].r[0] = 1807;
             });
 
-            addUpdateTest('update main width (shrink)', () => {
+            addUpdateTest("update main width (shrink)", () => {
                 root.children[0].w = 300;
                 root.children[0].r[2] = 307;
                 root.children[0].children[0].r[2] = 700;
                 root.children[0].children[1].r[0] = 707;
             });
 
-            addUpdateTest('update main y offset (1)', () => {
+            addUpdateTest("update main y offset (1)", () => {
                 root.children[0].y = 50;
                 root.children[0].r[1] = 50;
             });
 
-            addUpdateTest('update main y offset (2)', () => {
+            addUpdateTest("update main y offset (2)", () => {
                 root.children[0].y = 0;
                 root.children[0].r[1] = 0;
             });
 
-            addUpdateTest('update sub y offset (1)', () => {
+            addUpdateTest("update sub y offset (1)", () => {
                 root.children[0].children[0].y = 50;
                 root.children[0].children[0].r[1] = 55;
             });
 
-            addUpdateTest('update sub y offset (2)', () => {
+            addUpdateTest("update sub y offset (2)", () => {
                 root.children[0].children[0].y = 0;
                 root.children[0].children[0].r[1] = 5;
             });
 
-            addUpdateTest('update padding', () => {
+            addUpdateTest("update padding", () => {
                 root.children[0].children[0].flex.padding = 10;
                 root.children[0].children[0].r[2] = 520;
                 root.children[0].children[0].r[0] = 7;
@@ -236,36 +236,36 @@ describe('layout', () => {
                 root.children[0].children[1].r[0] = 527;
             });
 
-            addUpdateTest('align items', () => {
-                root.children[0].children[0].flex.alignItems = 'stretch';
+            addUpdateTest("align items", () => {
+                root.children[0].children[0].flex.alignItems = "stretch";
                 root.children[0].children[0].children[1].r[3] = 480;
             });
 
-            addUpdateTest('align self', () => {
-                root.children[0].children[0].children[1].flexItem.alignSelf = 'flex-start';
+            addUpdateTest("align self", () => {
+                root.children[0].children[0].children[1].flexItem.alignSelf = "flex-start";
                 root.children[0].children[0].children[1].r[3] = 220;
             });
 
-            addUpdateTest('update deep tree', () => {
+            addUpdateTest("update deep tree", () => {
                 root.children[0].children[0].children[2].children[0].w = 200;
                 root.children[0].children[0].children[2].children[0].r[2] = 220;
             });
 
-            addUpdateTest('disable flex item', () => {
+            addUpdateTest("disable flex item", () => {
                 root.children[0].children[0].children[0].children[1].flexItem.enabled = false;
                 root.children[0].children[0].children[0].children[1].r[0] = 0;
                 root.children[0].children[0].children[0].children[1].r[1] = 0;
                 root.children[0].children[0].children[0].children[2].r[3] = 300;
             });
 
-            addUpdateTest('re-enable flex item', () => {
+            addUpdateTest("re-enable flex item", () => {
                 root.children[0].children[0].children[0].children[1].flexItem.enabled = true;
                 root.children[0].children[0].children[0].children[1].r[0] = 50;
                 root.children[0].children[0].children[0].children[1].r[1] = 200;
                 root.children[0].children[0].children[0].children[2].r[3] = 200;
             });
 
-            addUpdateTest('disable flex container', () => {
+            addUpdateTest("disable flex container", () => {
                 root.children[0].children[0].children[0].flex.enabled = false;
                 root.children[0].children[0].children[0].r[2] = 200;
                 root.children[0].children[0].children[0].children[0].r[0] = 0;
@@ -278,7 +278,7 @@ describe('layout', () => {
                 root.children[0].children[0].children[2].r[0] = 330;
             });
 
-            addUpdateTest('enable flex container', () => {
+            addUpdateTest("enable flex container", () => {
                 root.children[0].children[0].children[0].flex.enabled = true;
                 root.children[0].children[0].children[0].r[2] = 250;
                 root.children[0].children[0].children[0].children[0].r[0] = 50;
@@ -291,7 +291,7 @@ describe('layout', () => {
                 root.children[0].children[0].children[2].r[0] = 380;
             });
 
-            addUpdateTest('add subtree', () => {
+            addUpdateTest("add subtree", () => {
                 const structure = {
                     flex: { enabled: true },
                     w: 800,
@@ -315,12 +315,12 @@ describe('layout', () => {
                 root.children[0].children[0].children[3].children[2].r = [300, 0, 150, 150];
             });
 
-            addUpdateTest('remove subtree', () => {
+            addUpdateTest("remove subtree", () => {
                 const target = root.children[0].children[0];
                 target.removeChildAt(target.children.length - 1);
             });
 
-            addUpdateTest('visibility off', () => {
+            addUpdateTest("visibility off", () => {
                 const target = root.children[0].children[0].children[0];
                 target.visible = false;
 
@@ -330,7 +330,7 @@ describe('layout', () => {
                 root.children[0].children[1].r[0] = 447;
             });
 
-            addUpdateTest('visibility on', () => {
+            addUpdateTest("visibility on", () => {
                 const target = root.children[0].children[0].children[0];
                 target.visible = true;
 

@@ -1,12 +1,12 @@
-import FlexTestUtils from './src/FlexTestUtils';
-import Target from './src/Target';
+import FlexTestUtils from "./src/FlexTestUtils";
+import Target from "./src/Target";
 
 const flexTestUtils = new FlexTestUtils();
 
-describe('relative', function() {
+describe("relative", function () {
     this.timeout(0);
-    describe('absolute', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('func x, y, w, h', {
+    describe("absolute", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("func x, y, w, h", {
             flex: { enabled: true },
             w: 200,
             h: 400,
@@ -31,7 +31,7 @@ describe('relative', function() {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('flex relative to absolute parent', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("flex relative to absolute parent", {
             w: 600,
             h: 800,
             r: [0, 0, 600, 800],
@@ -63,7 +63,7 @@ describe('relative', function() {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('fit-to-contents containing funcW, funcH (expect 0)', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("fit-to-contents containing funcW, funcH (expect 0)", {
             w: 100,
             h: 100,
             flex: { enabled: true },
@@ -88,10 +88,10 @@ describe('relative', function() {
         - we must not include the flex item's dynamic size in the cross axis layout calcs
         - we must update the flex item's axis size based on the new cross axis size
          */
-        flexTestUtils.addMochaTestForAnnotatedStructure('dynamic main axis situation', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("dynamic main axis situation", {
             w: 100,
             h: 300,
-            flex: { enabled: true, direction: 'column' },
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 100, 300],
             children: [
                 {
@@ -101,21 +101,21 @@ describe('relative', function() {
                     flexItem: { grow: 1 },
                     r: [0, 0, 100, 300],
                     children: [
-                        { w: 50, h: 100, r: [0, 0, 50, 300], flexItem: { alignSelf: 'stretch' } },
+                        { w: 50, h: 100, r: [0, 0, 50, 300], flexItem: { alignSelf: "stretch" } },
                         { w: 50, h: (h: number) => h * 2, r: [50, 0, 50, 600] },
                     ],
                 },
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('dynamic main axis situation', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("dynamic main axis situation", {
             w: 100,
             h: 300,
-            flex: { enabled: true, direction: 'column' },
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 100, 300],
             children: [
                 {
-                    flex: { enabled: true, direction: 'column' },
+                    flex: { enabled: true, direction: "column" },
                     w: 100,
                     h: 200,
                     flexItem: { grow: 1 },
@@ -128,14 +128,14 @@ describe('relative', function() {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('dynamic main axis situation - with grow', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("dynamic main axis situation - with grow", {
             w: 100,
             h: 300,
-            flex: { enabled: true, direction: 'column' },
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 100, 300],
             children: [
                 {
-                    flex: { enabled: true, direction: 'column' },
+                    flex: { enabled: true, direction: "column" },
                     w: 100,
                     h: 200,
                     flexItem: { grow: 1 },
@@ -148,14 +148,14 @@ describe('relative', function() {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('dynamic main axis situation - with ignored grow', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("dynamic main axis situation - with ignored grow", {
             w: 100,
             h: 300,
-            flex: { enabled: true, direction: 'column' },
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 100, 300],
             children: [
                 {
-                    flex: { enabled: true, direction: 'column' },
+                    flex: { enabled: true, direction: "column" },
                     w: 100,
                     h: 200,
                     flexItem: { grow: 1 },
@@ -168,7 +168,7 @@ describe('relative', function() {
             ],
         });
 
-        describe('recursive', () => {
+        describe("recursive", () => {
             let root: any;
             let level1: any;
             let level2: any;
@@ -260,20 +260,20 @@ describe('relative', function() {
                 flexTestUtils.addAnnotatedUpdateTest(getRoot, name, setup);
             };
 
-            describe('initial', () => {
-                it('layouts', () => {
+            describe("initial", () => {
+                it("layouts", () => {
                     return flexTestUtils.validateAnnotatedFlex(root);
                 });
             });
 
-            addUpdateTest('update leaf', () => {
+            addUpdateTest("update leaf", () => {
                 leaf.w = (w: number) => w * 0.2;
                 leaf.h = (h: number) => h * 1;
                 leaf.r = [0, 0, 32, 8];
                 return { layouts: [leaf, level2] };
             });
 
-            addUpdateTest('update level2', () => {
+            addUpdateTest("update level2", () => {
                 level2.w = (w: number) => w * 0.8;
                 level2.h = (h: number) => h * 0.4;
                 level2.r = [0, 0, 320, 16];
@@ -282,7 +282,7 @@ describe('relative', function() {
                 return { layouts: [leaf, level2, level1] };
             });
 
-            addUpdateTest('update level1', () => {
+            addUpdateTest("update level1", () => {
                 level1.w = (w: number) => w * 0.25;
                 level1.h = (h: number) => h * 0.1;
                 level1.r = [0, 0, 200, 20];
@@ -293,7 +293,7 @@ describe('relative', function() {
                 return { layouts: [leaf, sibling, level2, level1, root] };
             });
 
-            addUpdateTest('update root w,h', () => {
+            addUpdateTest("update root w,h", () => {
                 root.w = 1200;
                 root.h = 400;
                 root.r = [0, 0, 1200, 400];
@@ -307,7 +307,7 @@ describe('relative', function() {
                 return { layouts: [leaf, level2, level1, root, sibling, siblingSub] };
             });
 
-            addUpdateTest('convert siblingSub to funcW,funcH', () => {
+            addUpdateTest("convert siblingSub to funcW,funcH", () => {
                 siblingSub.x = (w: number) => w * 0.1;
                 siblingSub.y = (h: number) => h * 0.1;
                 siblingSub.w = (w: number) => w * 0.25;
@@ -317,7 +317,7 @@ describe('relative', function() {
                 return { layouts: [sibling, siblingSub] };
             });
 
-            addUpdateTest('convert siblingSub to fixed w,h', () => {
+            addUpdateTest("convert siblingSub to fixed w,h", () => {
                 siblingSub.x = 1;
                 siblingSub.y = 1;
                 siblingSub.w = 500;
@@ -328,7 +328,7 @@ describe('relative', function() {
                 return { layouts: [sibling, siblingSub] };
             });
 
-            addUpdateTest('convert leaf to funcW', () => {
+            addUpdateTest("convert leaf to funcW", () => {
                 siblingLeaf.w = (w: number) => w * 0.1;
                 siblingLeaf.h = (h: number) => h * 0.2;
                 siblingLeaf.r = [0, 0, 50, 100];

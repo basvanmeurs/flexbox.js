@@ -1,11 +1,11 @@
-import FlexTestUtils from './src/FlexTestUtils';
+import FlexTestUtils from "./src/FlexTestUtils";
 
 const flexTestUtils = new FlexTestUtils();
 
-describe('layout', () => {
-    describe('absolute', () => {
+describe("layout", () => {
+    describe("absolute", () => {
         // flexItem: false should cause the item to be ignored.
-        flexTestUtils.addMochaTestForAnnotatedStructure('simple', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("simple", {
             flex: { enabled: true },
             r: [0, 0, 770, 315],
             flexItem: {},

@@ -1,20 +1,20 @@
-import FlexTestUtils from './src/FlexTestUtils';
+import FlexTestUtils from "./src/FlexTestUtils";
 
 const flexTestUtils = new FlexTestUtils();
 
 // These tests must be performed separately from HTML because we want it to behave differently (more consistently) than HTML.
-describe('layout', () => {
-    describe('force stretch', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('alignSelf:stretch', {
+describe("layout", () => {
+    describe("force stretch", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("alignSelf:stretch", {
             flex: { enabled: true },
             r: [0, 0, 450, 300],
             children: [
                 {
-                    flex: { enabled: true, alignItems: 'flex-end' },
+                    flex: { enabled: true, alignItems: "flex-end" },
                     r: [0, 0, 450, 300],
                     children: [
                         { w: 200, h: 300, r: [0, 0, 200, 300] },
-                        { w: 100, h: 100, r: [200, 0, 100, 300], flexItem: { alignSelf: 'stretch' } },
+                        { w: 100, h: 100, r: [200, 0, 100, 300], flexItem: { alignSelf: "stretch" } },
                         { w: 150, h: 150, r: [300, 150, 150, 150] },
                     ],
                 },
@@ -22,13 +22,13 @@ describe('layout', () => {
         });
     });
 
-    flexTestUtils.addMochaTestForAnnotatedStructure('borders', {
-        flex: { enabled: true, direction: 'column' },
+    flexTestUtils.addMochaTestForAnnotatedStructure("borders", {
+        flex: { enabled: true, direction: "column" },
         r: [0, 0, 420, 420],
         children: [
             { w: 0, h: 10, r: [0, 0, 420, 10] },
             {
-                flex: { enabled: true, direction: 'row' },
+                flex: { enabled: true, direction: "row" },
                 r: [0, 10, 420, 400],
                 children: [
                     { w: 10, h: 0, r: [0, 0, 10, 400] },
@@ -40,15 +40,15 @@ describe('layout', () => {
         ],
     });
 
-    flexTestUtils.addMochaTestForAnnotatedStructure('flex offset', {
-        flex: { enabled: true, direction: 'column' },
+    flexTestUtils.addMochaTestForAnnotatedStructure("flex offset", {
+        flex: { enabled: true, direction: "column" },
         x: 100,
         y: 120,
         r: [100, 120, 420, 420],
         children: [
             { w: 0, h: 10, r: [0, 0, 420, 10] },
             {
-                flex: { enabled: true, direction: 'row' },
+                flex: { enabled: true, direction: "row" },
                 r: [0, 10, 420, 400],
                 children: [
                     { w: 10, h: 0, r: [0, 0, 10, 400] },
@@ -60,15 +60,15 @@ describe('layout', () => {
         ],
     });
 
-    flexTestUtils.addMochaTestForAnnotatedStructure('flex item offset', {
-        flex: { enabled: true, direction: 'column' },
+    flexTestUtils.addMochaTestForAnnotatedStructure("flex item offset", {
+        flex: { enabled: true, direction: "column" },
         x: 100,
         y: 120,
         r: [100, 120, 420, 420],
         children: [
             { w: 0, h: 10, r: [0, 0, 420, 10] },
             {
-                flex: { enabled: true, direction: 'row' },
+                flex: { enabled: true, direction: "row" },
                 r: [0, 10, 420, 400],
                 children: [
                     { x: 100, y: 10, w: 10, h: 0, r: [100, 10, 10, 400] },
@@ -80,7 +80,7 @@ describe('layout', () => {
         ],
     });
 
-    flexTestUtils.addMochaTestForAnnotatedStructure('simple shrink', {
+    flexTestUtils.addMochaTestForAnnotatedStructure("simple shrink", {
         r: [0, 0, 310, 110],
         w: 300,
         flex: { enabled: true, padding: 5 },

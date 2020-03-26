@@ -41,7 +41,7 @@ export class AnnotatedStructureMismatchCollector {
                 item.r ? { x: item.r[0], y: item.r[1], w: item.r[2], h: item.r[3] } : { x: 0, y: 0, w: 0, h: 0 },
             )
         ) {
-            this._results.push(location.join('.'));
+            this._results.push(location.join("."));
         }
         item.children.forEach((subItem: any, index: number) => {
             const subLocation = location.concat([index]);

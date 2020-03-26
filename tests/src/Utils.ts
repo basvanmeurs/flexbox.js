@@ -1,15 +1,15 @@
 export default class Utils {
     static isFunction(value: any) {
-        return typeof value === 'function';
+        return typeof value === "function";
     }
 
     static isObject(value: any) {
         const type = typeof value;
-        return !!value && (type === 'object' || type === 'function');
+        return !!value && (type === "object" || type === "function");
     }
 
     static isObjectLiteral(value: any) {
-        return typeof value === 'object' && value && value.constructor === Object;
+        return typeof value === "object" && value && value.constructor === Object;
     }
 
     static equalValues(v1: any, v2: any) {

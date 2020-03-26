@@ -1,10 +1,10 @@
-import FlexTestUtils from './src/FlexTestUtils';
+import FlexTestUtils from "./src/FlexTestUtils";
 
 const flexTestUtils = new FlexTestUtils();
 
-describe('layout', () => {
-    describe('margins', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('main axis margins, no wrap', {
+describe("layout", () => {
+    describe("margins", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("main axis margins, no wrap", {
             flex: { enabled: true },
             r: [0, 0, 770, 315],
             flexItem: {},
@@ -21,7 +21,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('wrap', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("wrap", {
             flex: { enabled: true, wrap: true },
             w: 300,
             r: [0, 0, 300, 570],
@@ -33,7 +33,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('no wrap, shrink', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("no wrap, shrink", {
             flex: { enabled: true },
             w: 200,
             r: [0, 0, 200, 320],
@@ -52,9 +52,9 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('reverse', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("reverse", {
             w: 483,
-            flex: { enabled: true, direction: 'row-reverse', wrap: false },
+            flex: { enabled: true, direction: "row-reverse", wrap: false },
             r: [0, 0, 483, 300],
             flexItem: {},
             children: [
@@ -64,8 +64,8 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('stretch', {
-            flex: { enabled: true, alignItems: 'stretch', alignContent: 'stretch', wrap: true },
+        flexTestUtils.addMochaTestForAnnotatedStructure("stretch", {
+            flex: { enabled: true, alignItems: "stretch", alignContent: "stretch", wrap: true },
             w: 600,
             h: 600,
             r: [0, 0, 600, 600],
@@ -89,16 +89,16 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('advanced', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("advanced", {
             r: [0, 0, 517, 605],
             flex: { enabled: true, paddingTop: 5, paddingLeft: 7 },
             children: [
                 {
-                    flex: { enabled: true, padding: 100, alignItems: 'flex-end' },
+                    flex: { enabled: true, padding: 100, alignItems: "flex-end" },
                     r: [7, 5, 510, 600],
                     children: [
                         {
-                            flex: { enabled: true, direction: 'column-reverse', paddingLeft: 50 },
+                            flex: { enabled: true, direction: "column-reverse", paddingLeft: 50 },
                             r: [100, 100, 170, 400],
                             h: 400,
                             children: [

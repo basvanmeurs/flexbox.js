@@ -1,5 +1,5 @@
-import getSpacing from '../spacing';
-import LineLayout from './LineLayout';
+import getSpacing from "../spacing";
+import LineLayout from "./LineLayout";
 
 export default class ItemPositioner {
     constructor(private line: LineLayout) {}

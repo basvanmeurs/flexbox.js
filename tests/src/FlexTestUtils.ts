@@ -1,8 +1,8 @@
-import Target from './Target';
-import FlexLayouter from '../../src/layout/FlexLayouter';
-import { AnnotatedStructureMismatchCollector } from './AnnotatedStructureMismatchCollector';
-import sinon = require('sinon');
-import chai = require('chai');
+import Target from "./Target";
+import FlexLayouter from "../../src/layout/FlexLayouter";
+import { AnnotatedStructureMismatchCollector } from "./AnnotatedStructureMismatchCollector";
+import sinon = require("sinon");
+import chai = require("chai");
 
 export default class FlexTestUtils {
     _convertToFlex(structure: any) {
@@ -19,14 +19,14 @@ export default class FlexTestUtils {
 
     addMochaTestForAnnotatedStructure(name: string, structure: any) {
         describe(name, () => {
-            it('layouts', done => {
+            it("layouts", (done) => {
                 const root = this._convertToFlex(structure);
                 const collector = new AnnotatedStructureMismatchCollector(root);
                 const mismatches = collector.getMismatches();
                 if (!mismatches.length) {
                     done();
                 } else {
-                    done(new Error('Mismatches:\n' + mismatches.join('\n') + '\n\n' + root.toString()));
+                    done(new Error("Mismatches:\n" + mismatches.join("\n") + "\n\n" + root.toString()));
                 }
             });
         });
@@ -37,7 +37,7 @@ export default class FlexTestUtils {
             const collector = new AnnotatedStructureMismatchCollector(root);
             const mismatches = collector.getMismatches();
             if (mismatches.length) {
-                reject(new Error('Mismatches:\n' + mismatches.join('\n') + '\n\n' + root.toString()));
+                reject(new Error("Mismatches:\n" + mismatches.join("\n") + "\n\n" + root.toString()));
             } else {
                 resolve();
             }
@@ -47,36 +47,36 @@ export default class FlexTestUtils {
     checkUpdatedTargets(updatedTargets: object[], expectedTargets: object[]) {
         const updatedSet = new Set(updatedTargets);
         const expectedSet = new Set(expectedTargets);
-        const missing: any[] = [...expectedSet].filter(x => !updatedSet.has(x));
+        const missing: any[] = [...expectedSet].filter((x) => !updatedSet.has(x));
         chai.assert(
             !missing.length,
-            'has missing updated targets: ' + missing.map(target => target.subject.getLocationString()),
+            "has missing updated targets: " + missing.map((target) => target.subject.getLocationString()),
         );
-        const unexpected: any[] = [...updatedSet].filter(x => !expectedSet.has(x));
+        const unexpected: any[] = [...updatedSet].filter((x) => !expectedSet.has(x));
         chai.assert(
             !unexpected.length,
-            'has unexpected updated targets: ' + unexpected.map(target => target.subject.getLocationString()),
+            "has unexpected updated targets: " + unexpected.map((target) => target.subject.getLocationString()),
         );
 
         const sameLength = expectedTargets.length === updatedTargets.length;
         chai.assert(
             sameLength,
-            'the number of target updates mismatches: ' +
+            "the number of target updates mismatches: " +
                 updatedTargets.length +
-                ' while we expected ' +
+                " while we expected " +
                 expectedTargets.length,
         );
     }
 
     addAnnotatedUpdateTest(getRoot: () => Target, name: string, setup: (root: Target) => any) {
         describe(name, () => {
-            it('layouts', () => {
+            it("layouts", () => {
                 const root = getRoot();
                 const tests = setup(root);
 
                 let layoutSpy: any;
                 if (tests && tests.layouts) {
-                    layoutSpy = sinon.spy(FlexLayouter.prototype as any, 'layoutMainAxis');
+                    layoutSpy = sinon.spy(FlexLayouter.prototype as any, "layoutMainAxis");
                 }
 
                 root.update();

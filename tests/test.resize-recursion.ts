@@ -1,18 +1,18 @@
-import FlexTestUtils from './src/FlexTestUtils';
+import FlexTestUtils from "./src/FlexTestUtils";
 
 const flexTestUtils = new FlexTestUtils();
 
-describe('layout', () => {
-    describe('resize recursion', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('simple', {
-            flex: { enabled: true, alignItems: 'stretch', justifyContent: 'flex-start' },
+describe("layout", () => {
+    describe("resize recursion", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("simple", {
+            flex: { enabled: true, alignItems: "stretch", justifyContent: "flex-start" },
             r: [0, 0, 450, 200],
             flexItem: {},
             children: [
                 { w: 100, h: 200, r: [0, 0, 100, 200] },
                 {
-                    flex: { enabled: true, direction: 'column', wrap: true },
-                    flexItem: { alignSelf: 'stretch' },
+                    flex: { enabled: true, direction: "column", wrap: true },
+                    flexItem: { alignSelf: "stretch" },
                     h: 90,
                     r: [100, 0, 50, 200],
                     children: [
@@ -28,16 +28,16 @@ describe('layout', () => {
 
         // Recursive resize grow is not supported to prevent infinite loops/slow layout.
         // The horizontal resize of the column (becomes smaller) should not cause the first flex item to grow again.
-        flexTestUtils.addMochaTestForAnnotatedStructure('grow', {
-            flex: { enabled: true, alignItems: 'stretch', justifyContent: 'flex-start' },
+        flexTestUtils.addMochaTestForAnnotatedStructure("grow", {
+            flex: { enabled: true, alignItems: "stretch", justifyContent: "flex-start" },
             w: 500,
             r: [0, 0, 500, 200],
             flexItem: {},
             children: [
                 { w: 100, h: 200, r: [0, 0, 150, 200], flexItem: { grow: 1 } },
                 {
-                    flex: { enabled: true, direction: 'column', wrap: true },
-                    flexItem: { alignSelf: 'stretch' },
+                    flex: { enabled: true, direction: "column", wrap: true },
+                    flexItem: { alignSelf: "stretch" },
                     h: 90,
                     r: [150, 0, 50, 200],
                     children: [

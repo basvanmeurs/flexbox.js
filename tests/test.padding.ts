@@ -1,10 +1,10 @@
-import FlexTestUtils from './src/FlexTestUtils';
+import FlexTestUtils from "./src/FlexTestUtils";
 
 const flexTestUtils = new FlexTestUtils();
 
-describe('layout', () => {
-    describe('padding', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('no wrap', {
+describe("layout", () => {
+    describe("padding", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("no wrap", {
             flex: { enabled: true, paddingLeft: 100, paddingTop: 120, paddingRight: 50, paddingBottom: 20 },
             w: 1000,
             r: [0, 0, 1150, 440],
@@ -16,7 +16,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('wrap', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("wrap", {
             flex: { enabled: true, padding: 100, wrap: true },
             w: 250,
             r: [0, 0, 450, 650],
@@ -28,7 +28,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('no wrap, shrink', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("no wrap, shrink", {
             flex: { enabled: true },
             w: 200,
             r: [0, 0, 200, 500],
@@ -47,7 +47,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('wrap, grow', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("wrap, grow", {
             flex: { enabled: true },
             r: [0, 0, 600, 650],
             w: 600,
@@ -66,10 +66,10 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('reverse', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("reverse", {
             flex: {
                 enabled: true,
-                direction: 'row-reverse',
+                direction: "row-reverse",
                 paddingLeft: 100,
                 paddingRight: 50,
                 paddingTop: 100,
@@ -84,8 +84,8 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('stretch', {
-            flex: { enabled: true, alignItems: 'stretch', alignContent: 'stretch', wrap: true },
+        flexTestUtils.addMochaTestForAnnotatedStructure("stretch", {
+            flex: { enabled: true, alignItems: "stretch", alignContent: "stretch", wrap: true },
             w: 600,
             h: 600,
             r: [0, 0, 600, 600],
@@ -103,16 +103,16 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('advanced', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("advanced", {
             flex: { enabled: true, paddingTop: 5, paddingLeft: 7 },
             r: [0, 0, 477, 605],
             children: [
                 {
-                    flex: { enabled: true, padding: 100, alignItems: 'flex-end' },
+                    flex: { enabled: true, padding: 100, alignItems: "flex-end" },
                     r: [7, 5, 470, 600],
                     children: [
                         {
-                            flex: { enabled: true, direction: 'column-reverse', paddingLeft: 50 },
+                            flex: { enabled: true, direction: "column-reverse", paddingLeft: 50 },
                             r: [100, 100, 150, 400],
                             h: 400,
                             children: [

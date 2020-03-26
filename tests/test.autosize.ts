@@ -1,11 +1,11 @@
-import FlexTestUtils from './src/FlexTestUtils';
+import FlexTestUtils from "./src/FlexTestUtils";
 
 const flexTestUtils = new FlexTestUtils();
 
 // These tests must be performed separately from HTML because we want it to behave differently (more consistently) than HTML.
-describe('layout', () => {
-    describe('autosize', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('row: autosize w,h', {
+describe("layout", () => {
+    describe("autosize", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("row: autosize w,h", {
             flex: { enabled: true },
             r: [0, 0, 1050, 300],
             children: [
@@ -20,7 +20,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('row: autosize w', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("row: autosize w", {
             flex: { enabled: true },
             h: 89,
             r: [0, 0, 1050, 89],
@@ -36,7 +36,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('row: wrapping w, autosize h', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("row: wrapping w, autosize h", {
             flex: { enabled: true, wrap: true },
             w: 400,
             r: [0, 0, 400, 614],
@@ -52,7 +52,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('row: non-wrapping w, autosize h', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("row: non-wrapping w, autosize h", {
             flex: { enabled: true, wrap: true },
             w: 4000,
             r: [0, 0, 4000, 312],
@@ -68,8 +68,8 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('column: autosize w,h', {
-            flex: { enabled: true, direction: 'column' },
+        flexTestUtils.addMochaTestForAnnotatedStructure("column: autosize w,h", {
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 200, 960],
             children: [
                 { w: 100, h: 100, r: [0, 0, 100, 100] },

@@ -1,7 +1,7 @@
-import FlexSubject, { RelativeHeightFunction, RelativeWidthFunction } from './FlexSubject';
-import FlexNode from './FlexNode';
-import FlexContainer from './FlexContainer';
-import FlexItem from './FlexItem';
+import FlexSubject, { RelativeHeightFunction, RelativeWidthFunction } from "./FlexSubject";
+import FlexNode from "./FlexNode";
+import FlexContainer from "./FlexContainer";
+import FlexItem from "./FlexItem";
 
 export default class FlexTarget implements FlexSubject {
     private _children: FlexTarget[] = [];
@@ -344,7 +344,7 @@ export default class FlexTarget implements FlexSubject {
     setChildren(children: FlexTarget[]) {
         this._children = children;
 
-        children.forEach(child => {
+        children.forEach((child) => {
             child.setParent(this);
         });
     }
@@ -408,8 +408,8 @@ export default class FlexTarget implements FlexSubject {
     toJson(path: number[] = []): any {
         const layout = [this._x, this._y, this._w, this._h];
         const json = {
-            path: '[' + path.join('][') + ']',
-            layout: layout.join(' '),
+            path: "[" + path.join("][") + "]",
+            layout: layout.join(" "),
             w: this.getLayoutW(),
             h: this.getLayoutH(),
             x: this.getLayoutX(),
@@ -449,9 +449,9 @@ export default class FlexTarget implements FlexSubject {
     }
 
     getLocationString(): string {
-        const i = this._parent ? this._parent._children.indexOf(this) : 'R';
-        let str = this._parent ? this._parent.getLocationString() : '';
-        str += '[' + i + ']';
+        const i = this._parent ? this._parent._children.indexOf(this) : "R";
+        let str = this._parent ? this._parent.getLocationString() : "";
+        str += "[" + i + "]";
         return str;
     }
 
@@ -488,6 +488,6 @@ export default class FlexTarget implements FlexSubject {
     }
 
     static isFunction(value: any) {
-        return typeof value === 'function';
+        return typeof value === "function";
     }
 }

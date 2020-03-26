@@ -1,12 +1,12 @@
-import FlexTestUtils from './src/FlexTestUtils';
-import Target from './src/Target';
+import FlexTestUtils from "./src/FlexTestUtils";
+import Target from "./src/Target";
 
 const flexTestUtils = new FlexTestUtils();
 
 // These tests must be performed separately from HTML because we want it to behave differently (more consistently) than HTML.
-describe('layout', () => {
-    describe('sizing', () => {
-        flexTestUtils.addMochaTestForAnnotatedStructure('overrule dimensions', {
+describe("layout", () => {
+    describe("sizing", () => {
+        flexTestUtils.addMochaTestForAnnotatedStructure("overrule dimensions", {
             flex: { enabled: true },
             r: [0, 0, 670, 300],
             children: [
@@ -17,7 +17,7 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('shrink minWidth', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("shrink minWidth", {
             flex: { enabled: true },
             r: [0, 0, 200, 300],
             w: 200,
@@ -36,8 +36,8 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('shrink minHeight', {
-            flex: { enabled: true, direction: 'column' },
+        flexTestUtils.addMochaTestForAnnotatedStructure("shrink minHeight", {
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 200, 200],
             h: 200,
             children: [
@@ -47,27 +47,27 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('stretch maxHeight', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("stretch maxHeight", {
             flex: { enabled: true },
             r: [0, 0, 450, 300],
             children: [
                 { w: 200, h: 300, r: [0, 0, 200, 300] },
-                { w: 100, h: 100, r: [200, 0, 100, 200], flexItem: { alignSelf: 'stretch', maxHeight: 200 } },
+                { w: 100, h: 100, r: [200, 0, 100, 200], flexItem: { alignSelf: "stretch", maxHeight: 200 } },
                 { w: 150, h: 150, r: [300, 0, 150, 150] },
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('stretch maxWidth', {
-            flex: { enabled: true, direction: 'column' },
+        flexTestUtils.addMochaTestForAnnotatedStructure("stretch maxWidth", {
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 200, 550],
             children: [
                 { w: 200, h: 300, r: [0, 0, 200, 300] },
-                { w: 100, h: 100, r: [0, 300, 120, 100], flexItem: { alignSelf: 'stretch', maxWidth: 120 } },
+                { w: 100, h: 100, r: [0, 300, 120, 100], flexItem: { alignSelf: "stretch", maxWidth: 120 } },
                 { w: 150, h: 150, r: [0, 400, 150, 150] },
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('grow maxWidth', {
+        flexTestUtils.addMochaTestForAnnotatedStructure("grow maxWidth", {
             flex: { enabled: true },
             r: [0, 0, 600, 300],
             w: 600,
@@ -78,8 +78,8 @@ describe('layout', () => {
             ],
         });
 
-        flexTestUtils.addMochaTestForAnnotatedStructure('grow maxHeight', {
-            flex: { enabled: true, direction: 'column' },
+        flexTestUtils.addMochaTestForAnnotatedStructure("grow maxHeight", {
+            flex: { enabled: true, direction: "column" },
             r: [0, 0, 200, 700],
             h: 700,
             children: [
@@ -89,7 +89,7 @@ describe('layout', () => {
             ],
         });
 
-        describe('updates', function() {
+        describe("updates", function () {
             this.timeout(0);
 
             let root: any;
@@ -99,7 +99,7 @@ describe('layout', () => {
                 flexTestUtils.addAnnotatedUpdateTest(getRoot, name, setup);
             };
 
-            describe('changing minWidth in shrink situation', () => {
+            describe("changing minWidth in shrink situation", () => {
                 before(() => {
                     const structure = {
                         r: [0, 0, 200, 200],
@@ -143,13 +143,13 @@ describe('layout', () => {
                     root.update();
                 });
 
-                describe('initial', () => {
-                    it('layouts', () => {
+                describe("initial", () => {
+                    it("layouts", () => {
                         return flexTestUtils.validateAnnotatedFlex(root);
                     });
                 });
 
-                addUpdateTest('change minSize', () => {
+                addUpdateTest("change minSize", () => {
                     root.children[0].children[0].children[0].children[0].flexItem.minWidth = 300;
                     root.children[0].children[0].children[0].children[0].r = [0, 0, 300, 200];
                     root.children[0].children[0].children[0].r = [0, 0, 300, 200];

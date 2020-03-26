@@ -1,6 +1,6 @@
-import LineLayout from './line/LineLayout';
-import FlexLayouter from './FlexLayouter';
-import FlexNode from '../FlexNode';
+import LineLayout from "./line/LineLayout";
+import FlexLayouter from "./FlexLayouter";
+import FlexNode from "../FlexNode";
 
 /**
  * Distributes items over layout lines.

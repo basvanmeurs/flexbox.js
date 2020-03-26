@@ -1,5 +1,5 @@
-import FlexLayouter from './FlexLayouter';
-import FlexNode from '../FlexNode';
+import FlexLayouter from "./FlexLayouter";
+import FlexNode from "../FlexNode";
 
 export default class ItemCoordinatesUpdater {
     private readonly isReverse: boolean;

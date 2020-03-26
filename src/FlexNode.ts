@@ -1,6 +1,6 @@
-import FlexContainer from './FlexContainer';
-import FlexItem from './FlexItem';
-import FlexSubject from './FlexSubject';
+import FlexContainer from "./FlexContainer";
+import FlexItem from "./FlexItem";
+import FlexSubject from "./FlexSubject";
 
 /**
  * This is the connection between the render tree with the layout tree of this flex container/item.

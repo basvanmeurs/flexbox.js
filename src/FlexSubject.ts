@@ -1,4 +1,4 @@
-import FlexNode from './FlexNode';
+import FlexNode from "./FlexNode";
 
 export type RelativeWidthFunction = (w: number) => number;
 export type RelativeHeightFunction = (h: number) => number;
