@@ -1,3 +1,6 @@
+# Typescript compiler output
+lib/
+
 # We don't need to share config
 .idea
 
