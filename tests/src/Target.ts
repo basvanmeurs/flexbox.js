@@ -50,15 +50,21 @@ export default class Target extends FlexTarget {
     }
 
     toJson(path: number[] = []): any {
-        const json = super.toJson(path);
+        let json = super.toJson(path);
 
         if (this.r) {
             json.r = this.r.join(" ");
             let equals = true;
+            const layout = [this.getLayoutX(), this.getLayoutY(), this.getLayoutW(), this.getLayoutH()];
             for (let i = 0; i < 4; i++) {
-                equals = equals && Math.abs(this.r[i] - json.layout[i]) < 0.1;
+                equals = equals && Math.abs(this.r[i] - layout[i]) < 0.1;
             }
-            json.equals = equals ? "equal" : "not equal";
+
+            json = {
+                equals: equals ? "equal" : "not equal",
+                r: this.r.join(" "),
+                ...json,
+            };
         }
 
         return json;

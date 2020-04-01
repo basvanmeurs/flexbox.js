@@ -340,5 +340,93 @@ describe("layout", () => {
                 root.children[0].children[1].r[0] = 527;
             });
         });
+
+        describe("Relative sized flex container", () => {
+            before(() => {
+                const structure = {
+                    w: 400,
+                    r: [0, 0, 400, 0],
+                    children: [
+                        {
+                            w: (w: number) => w,
+                            h: 0,
+                            flex: { enabled: true, wrap: true },
+                            r: [0, 0, 400, 200],
+                            children: [
+                                {
+                                    rect: true,
+                                    color: 0xffff0000,
+                                    w: 100,
+                                    h: 100,
+                                    r: [0, 0, 100, 100],
+                                },
+                                {
+                                    rect: true,
+                                    color: 0xff00ff00,
+                                    w: 100,
+                                    h: 100,
+                                    r: [100, 0, 100, 100],
+                                },
+                                {
+                                    rect: true,
+                                    color: 0xff0000ff,
+                                    w: 100,
+                                    h: 100,
+                                    r: [200, 0, 100, 100],
+                                },
+                                {
+                                    rect: true,
+                                    color: 0xffff00ff,
+                                    w: 100,
+                                    h: 100,
+                                    r: [300, 0, 100, 100],
+                                },
+                                {
+                                    rect: true,
+                                    color: 0xffffff00,
+                                    w: 100,
+                                    h: 100,
+                                    r: [0, 100, 100, 100],
+                                },
+                            ],
+                        },
+                    ],
+                };
+                root = flexTestUtils.buildFlexFromStructure(structure);
+                root.update();
+            });
+
+            describe("initial", () => {
+                it("layouts", () => {
+                    return flexTestUtils.validateAnnotatedFlex(root);
+                });
+            });
+
+            describe("changes", () => {
+                addUpdateTest("resize root", () => {
+                    root.w = 250;
+                    root.r[2] = 250;
+
+                    root.children[0].r[2] = 250;
+                    root.children[0].r[3] = 300;
+                    root.children[0].children[2].r[0] = 0;
+                    root.children[0].children[2].r[1] = 100;
+                    root.children[0].children[3].r[0] = 100;
+                    root.children[0].children[3].r[1] = 100;
+                    root.children[0].children[4].r[0] = 0;
+                    root.children[0].children[4].r[1] = 200;
+
+                    return { layouts: [root.children[0]] };
+                });
+
+                addUpdateTest("move root", () => {
+                    root.x = 50;
+                    root.y = 50;
+                    root.r[0] = 50;
+                    root.r[1] = 50;
+                    return { layouts: [] };
+                });
+            });
+        });
     });
 });

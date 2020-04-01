@@ -577,4 +577,8 @@ export default class FlexNode {
             this.setAxisLayoutSize(horizontal, size);
         }
     }
+
+    isLayoutRoot() {
+        return this.isFlexEnabled() && !this.isFlexItemEnabled();
+    }
 }
