@@ -1,1 +1,5 @@
-module.exports = require("@planning.nl/webpack-config")("flexbox.js");
+module.exports = require("@planning.nl/webpack-config")( {
+    entry: {
+        "flexbox.js": "./src/index.ts",
+    },
+});
