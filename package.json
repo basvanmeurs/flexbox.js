@@ -9,7 +9,7 @@
     },
     "devDependencies": {
         "@planning.nl/eslint-config": "^1.0.3",
-        "@planning.nl/webpack-config": "^1.0.2",
+        "@planning.nl/webpack-config": "^1.0.4",
         "@types/chai": "^4.2.10",
         "@types/mocha": "^7.0.2",
         "@types/sinon": "^7.5.2",
