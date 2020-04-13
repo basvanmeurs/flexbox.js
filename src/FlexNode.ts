@@ -33,7 +33,7 @@ export default class FlexNode {
     }
 
     layoutFlexTree() {
-        if (this.isFlexEnabled() && this.isChanged()) {
+        if (this.isFlexEnabled()) {
             this.flexLayout!.layoutTree();
         }
     }

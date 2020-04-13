@@ -4,9 +4,8 @@ import FlexContainer from "./FlexContainer";
 import FlexItem from "./FlexItem";
 
 const COORDINATES_CHANGED = 2;
-const DIMENSIONS_CHANGED = 16;
 const LAYOUT_CHANGED = 256;
-type CHANGE = typeof COORDINATES_CHANGED | typeof DIMENSIONS_CHANGED | typeof LAYOUT_CHANGED;
+type CHANGE = typeof COORDINATES_CHANGED | typeof LAYOUT_CHANGED;
 
 export default class FlexTarget implements FlexSubject {
     private _children: FlexTarget[] = [];
@@ -79,7 +78,6 @@ export default class FlexTarget implements FlexSubject {
     }
 
     private onDimensionsChanged() {
-        this.setFlag(DIMENSIONS_CHANGED);
         this.triggerRecalcTranslate();
     }
 
@@ -104,15 +102,14 @@ export default class FlexTarget implements FlexSubject {
         return this._optFlags & 12;
     }
 
-    update(parentDimensionsChanged: boolean = false) {
-        if (this.isFlexLayoutRoot() && parentDimensionsChanged && this.hasRelativeDimensionFunctions()) {
-            // Parent width or height has changed while we are using relative dimension functions.
-            // We must force a re-layout as width or height might have been changed, which affects the flexbox layout.
-            // Notice that this edge case only occurs for root flex containers.
-            this.layout.forceLayout();
-        }
+    update() {
+        // Parent width or height could have been changed while we are using relative dimension functions.
+        // Width or height might have been changed, which affects the flexbox layout.
+        // Notice that this edge case only occurs for root flex containers.
+        const relativeDimsFlexRoot = this.isFlexLayoutRoot() && this.hasRelativeDimensionFunctions();
 
-        if (this.flags & LAYOUT_CHANGED) {
+        const mustLayout = this.flags & LAYOUT_CHANGED || relativeDimsFlexRoot;
+        if (mustLayout) {
             this._layout!.layoutFlexTree();
         }
 
@@ -136,7 +133,6 @@ export default class FlexTarget implements FlexSubject {
                 if (w !== this._w) {
                     this._w = w;
                     this.flags |= COORDINATES_CHANGED;
-                    this.flags |= DIMENSIONS_CHANGED;
                 }
             }
             if (this._optFlags & 8) {
@@ -144,7 +140,6 @@ export default class FlexTarget implements FlexSubject {
                 if (h !== this._h) {
                     this._h = h;
                     this.flags |= COORDINATES_CHANGED;
-                    this.flags |= DIMENSIONS_CHANGED;
                 }
             }
         }
@@ -154,13 +149,12 @@ export default class FlexTarget implements FlexSubject {
         }
 
         if (this.hasUpdates) {
-            const dimensionsChanged = (this.flags & DIMENSIONS_CHANGED) !== 0;
             this.flags = 0;
             this.hasUpdates = false;
             const children = this._children;
             if (children) {
                 for (let i = 0, n = children.length; i < n; i++) {
-                    children[i].update(dimensionsChanged);
+                    children[i].update();
                 }
             }
         }
@@ -411,8 +405,6 @@ export default class FlexTarget implements FlexSubject {
         if (this._w !== w || this._h !== h) {
             this._w = w;
             this._h = h;
-
-            this.flags |= 16;
 
             this.triggerRecalcTranslate();
         }

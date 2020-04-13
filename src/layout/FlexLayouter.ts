@@ -13,8 +13,11 @@ export default class FlexLayouter {
     private resizingMainAxis: boolean = false;
     private resizingCrossAxis: boolean = false;
 
-    private cachedMainAxisSizeAfterLayout: number = 0;
-    private cachedCrossAxisSizeAfterLayout: number = 0;
+    private cachedInitialWidth: number = 0;
+    private cachedInitialHeight: number = 0;
+
+    private cachedLayoutWidth: number = 0;
+    private cachedLayoutHeight: number = 0;
 
     private shrunk: boolean = false;
 
@@ -25,15 +28,25 @@ export default class FlexLayouter {
     layoutTree() {
         if (this.isSubTree()) {
             // This can occur if only a part of the flex hierarchy needs to be updated.
-            this.updateSubTreeLayout();
+            if (!this.shouldSkipSubTree()) {
+                this.updateSubTreeLayout();
+                this.updateItemCoords();
+            }
         } else {
             this.updateTreeLayout();
+            this.updateItemCoords();
         }
-        this.updateItemCoords();
     }
 
     private isSubTree() {
         return !!this.item.flexParent;
+    }
+
+    private shouldSkipSubTree() {
+        // If the recalc flag has already been cleared when getting here, we can assume that this subtree was already
+        // updated as part of a parent flex tree update. In that case we must not update this subtree individually as it
+        // may fail to take the flex ancestors into account - giving incorrect results.
+        return !this.container.node.isChanged();
     }
 
     updateTreeLayout() {
@@ -45,26 +58,40 @@ export default class FlexLayouter {
     }
 
     private performUpdateLayoutTree() {
+        this.setCachedInitialSizes();
         this.initializeAxisSizes();
         this.layoutAxes();
         this.setLayoutCache();
     }
 
+    private setCachedInitialSizes() {
+        this.cachedInitialWidth = this.item.getRelAxisSize(true);
+        this.cachedInitialHeight = this.item.getRelAxisSize(false);
+    }
+
     private setLayoutCache() {
-        this.cachedMainAxisSizeAfterLayout = this.mainAxisSize;
-        this.cachedCrossAxisSizeAfterLayout = this.crossAxisSize;
+        this.cachedLayoutWidth = this.item.getAxisLayoutSize(true);
+        this.cachedLayoutHeight = this.item.getAxisLayoutSize(false);
     }
 
     private performUpdateLayoutTreeFromCache() {
-        const sizeMightHaveChanged = this.item.sourceFuncW || this.item.sourceFuncH;
-        if (sizeMightHaveChanged) {
-            // Update after all.
+        if (this.isInitialSizeCacheValid()) {
+            this.useLayoutCache();
+        } else {
             this.item.enableLocalRecalcFlag();
             this.performUpdateLayoutTree();
-        } else {
-            this.mainAxisSize = this.cachedMainAxisSizeAfterLayout;
-            this.crossAxisSize = this.cachedCrossAxisSizeAfterLayout;
         }
+    }
+
+    private useLayoutCache() {
+        this.item.setAxisLayoutSize(true, this.cachedLayoutWidth);
+        this.item.setAxisLayoutSize(false, this.cachedLayoutHeight);
+    }
+
+    private isInitialSizeCacheValid() {
+        const initialWidth = this.item.getRelAxisSize(true);
+        const initialHeight = this.item.getRelAxisSize(false);
+        return this.cachedInitialWidth === initialWidth && this.cachedInitialHeight === initialHeight;
     }
 
     updateItemCoords() {

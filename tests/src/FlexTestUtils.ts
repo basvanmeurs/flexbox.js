@@ -63,8 +63,14 @@ export default class FlexTestUtils {
             sameLength,
             "the number of target updates mismatches: " +
                 updatedTargets.length +
+                " (" +
+                updatedTargets.map((target: any) => target.subject.getLocationString()) +
+                ")" +
                 " while we expected " +
-                expectedTargets.length,
+                expectedTargets.length +
+                " (" +
+                expectedTargets.map((target: any) => target.subject.getLocationString()) +
+                ")",
         );
     }
 
