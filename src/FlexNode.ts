@@ -67,6 +67,7 @@ export default class FlexNode {
     private enableFlex() {
         this.forceLayout();
         this.enableChildrenAsFlexItems();
+        this.updateEnabledFlag();
     }
 
     private disableFlex() {
@@ -90,18 +91,21 @@ export default class FlexNode {
     }
 
     private setSkipped() {
-        if (this.isFlexEnabled()) {
-            // We disable flex - and remember it - to simplify some cache-related stuff.
-            this.disableFlex();
-        }
+        const flexParent = this.flexParent;
 
-        const isFlexItemEnabled = this.isFlexItemEnabled();
+        const isFlexEnabled = this.isFlexEnabled();
 
         this._skip = true;
 
-        if (isFlexItemEnabled) {
+        if (isFlexEnabled) {
+            // We disable flex to simplify some cache-related stuff.
+            this.disableFlex();
+        }
+
+        if (flexParent) {
             this.disableFlexItem();
             this.enableChildrenAsFlexItems();
+            flexParent.changedChildren();
         }
     }
 
@@ -113,6 +117,7 @@ export default class FlexNode {
         if (parentIsFlex) {
             this.disableChildrenAsFlexItems();
             this.enableFlexItem();
+            this.getParent()!.changedChildren();
         }
 
         if (this._flex && this._flex.enabled) {
@@ -125,7 +130,7 @@ export default class FlexNode {
     }
 
     isFlexItemEnabled() {
-        return !this._skip && (this.flexParent !== undefined);
+        return !this._skip && this.flexParent !== undefined;
     }
 
     isEnabled() {
@@ -246,14 +251,15 @@ export default class FlexNode {
             } else {
                 this.enableFlexItem();
             }
-            toNode.changedChildren();
+            toNode!.changedChildren();
         } else {
             if (fromNode?.isFlexEnabled()) {
-                if (!this._skip) {
-                    this.disableFlexItem();
-                } else {
+                if (this._skip) {
                     this.disableChildrenAsFlexItems();
+                } else {
+                    this.disableFlexItem();
                 }
+                fromNode!.changedChildren();
             }
         }
     }
