@@ -38,8 +38,24 @@ export default class FlexTarget implements FlexSubject {
 
     private hasUpdates: boolean = false;
 
+    private _layoutTunnel: boolean = false;
+
     getChildren() {
         return this._children;
+    }
+
+    get layoutTunnel(): boolean {
+        return this._layoutTunnel;
+    }
+
+    set layoutTunnel(v: boolean) {
+        if (this._layoutTunnel !== v) {
+            // Force an update as absolute layout may be affected (on itself or on layout children).
+            this.triggerRecalcTranslate();
+
+            // @todo: cache updates.
+            this._layoutTunnel = v;
+        }
     }
 
     get layout(): FlexNode {
@@ -102,6 +118,16 @@ export default class FlexTarget implements FlexSubject {
         return this._optFlags & 12;
     }
 
+    private getLayoutParent() {
+        let current: FlexTarget = this.getParent()!;
+        while (current._layoutTunnel) {
+            const parent = current.getParent();
+            if (!parent) return current;
+            current = parent;
+        }
+        return current;
+    }
+
     update() {
         // Parent width or height could have been changed while we are using relative dimension functions.
         // Width or height might have been changed, which affects the flexbox layout.
@@ -114,34 +140,7 @@ export default class FlexTarget implements FlexSubject {
         }
 
         if (this._optFlags && !this.hasFlexLayout()) {
-            if (this._optFlags & 1) {
-                const x = this._funcX!(this._parent!.getLayoutW());
-                if (x !== this._x) {
-                    this._x = x;
-                    this.flags |= COORDINATES_CHANGED;
-                }
-            }
-            if (this._optFlags & COORDINATES_CHANGED) {
-                const y = this._funcY!(this._parent!.getLayoutH());
-                if (y !== this._y) {
-                    this._y = y;
-                    this.flags |= COORDINATES_CHANGED;
-                }
-            }
-            if (this._optFlags & 4) {
-                const w = this._funcW!(this._parent!.getLayoutW());
-                if (w !== this._w) {
-                    this._w = w;
-                    this.flags |= COORDINATES_CHANGED;
-                }
-            }
-            if (this._optFlags & 8) {
-                const h = this._funcH!(this._parent!.getLayoutH());
-                if (h !== this._h) {
-                    this._h = h;
-                    this.flags |= COORDINATES_CHANGED;
-                }
-            }
+            this.applyRelativeFunctions();
         }
 
         if (this.flags & COORDINATES_CHANGED) {
@@ -157,6 +156,44 @@ export default class FlexTarget implements FlexSubject {
                     children[i].update();
                 }
             }
+        }
+    }
+
+    private applyRelativeFunctions() {
+        const layoutParent = this.getLayoutParent()!;
+        if (this._optFlags & 1) {
+            const x = this._funcX!(layoutParent.getLayoutW());
+            if (x !== this._x) {
+                this._x = x;
+                this.flags |= COORDINATES_CHANGED;
+            }
+        }
+        if (this._optFlags & COORDINATES_CHANGED) {
+            const y = this._funcY!(layoutParent.getLayoutH());
+            if (y !== this._y) {
+                this._y = y;
+                this.flags |= COORDINATES_CHANGED;
+            }
+        }
+
+        let changedDims = false;
+        if (this._optFlags & 4) {
+            const w = this._funcW!(layoutParent.getLayoutW());
+            if (w !== this._w) {
+                this._w = w;
+                changedDims = true;
+            }
+        }
+        if (this._optFlags & 8) {
+            const h = this._funcH!(layoutParent.getLayoutH());
+            if (h !== this._h) {
+                this._h = h;
+                changedDims = true;
+            }
+        }
+
+        if (changedDims) {
+            this.onDimensionsChanged();
         }
     }
 
@@ -512,4 +549,5 @@ export default class FlexTarget implements FlexSubject {
     static isFunction(value: any) {
         return typeof value === "function";
     }
+
 }
