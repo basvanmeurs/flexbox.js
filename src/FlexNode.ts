@@ -122,13 +122,6 @@ export default class FlexNode {
 
         // We keep the flexItem object because it may contain custom settings.
         this.restoreLayoutIfNonFlex();
-
-        this.resetOffsets();
-    }
-
-    private resetOffsets() {
-        this.x = this.subject.getSourceX();
-        this.y = this.subject.getSourceY();
     }
 
     public restoreLayoutIfNonFlex() {
@@ -163,6 +156,8 @@ export default class FlexNode {
         if (to && to.getLayout().isFlexEnabled()) {
             this.enableFlexItem();
             to.getLayout().changedChildren();
+        } else {
+            this.disableFlexItem();
         }
 
         this.restoreLayoutIfNonFlex();
