@@ -38,29 +38,29 @@ export default class FlexTarget implements FlexSubject {
 
     private hasUpdates: boolean = false;
 
-    private _layoutTunnel: boolean = false;
-
     getChildren() {
         return this._children;
     }
 
-    get layoutTunnel(): boolean {
-        return this._layoutTunnel;
+    get skipInLayout(): boolean {
+        return this._layout ? this._layout.skip : false;
     }
 
-    set layoutTunnel(v: boolean) {
-        if (this._layoutTunnel !== v) {
+    set skipInLayout(v: boolean) {
+        if (this.skipInLayout !== v) {
             // Force an update as absolute layout may be affected (on itself or on layout children).
             this.triggerRecalcTranslate();
-
-            // @todo: cache updates.
-            this._layoutTunnel = v;
+            this.layout.skip = v;
         }
     }
 
     get layout(): FlexNode {
         this.ensureLayout();
         return this._layout!;
+    }
+
+    hasLayout(): boolean {
+        return !!this._layout;
     }
 
     getLayout() {
@@ -120,7 +120,7 @@ export default class FlexTarget implements FlexSubject {
 
     private getLayoutParent() {
         let current: FlexTarget = this.getParent()!;
-        while (current._layoutTunnel) {
+        while (current.skipInLayout) {
             const parent = current.getParent();
             if (!parent) return current;
             current = parent;

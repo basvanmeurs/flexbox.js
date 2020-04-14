@@ -10,6 +10,10 @@ export default interface FlexSubject {
 
     getLayout(): FlexNode;
 
+    // The subject can be configured to lazy-create the flex layout object for performance reasons.
+    // This function should return false if no layout object was constructed (no settings have been done at all).
+    hasLayout(): boolean;
+
     // Set the layout results.
     setLayoutCoords(x: number, y: number): void;
     setLayoutDimensions(w: number, h: number): void;
@@ -41,4 +45,5 @@ export default interface FlexSubject {
     getLayoutY(): number;
     getLayoutW(): number;
     getLayoutH(): number;
+
 }

@@ -41,7 +41,7 @@ export default class FlexItem {
         if (v !== this._enabled) {
             const prevFlexParent = this.node.flexParent;
             this._enabled = v;
-            this.node.restoreLayoutIfNonFlex();
+            this.node.updateEnabledFlag();
             if (prevFlexParent) {
                 prevFlexParent.changedChildren();
             }

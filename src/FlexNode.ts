@@ -26,6 +26,10 @@ export default class FlexNode {
 
     private _items?: FlexNode[];
 
+    // When a flex node is skipped, it does not take part in the flex layout.
+    // Both ancestors and descendants are considered to be at this node's level instead.
+    private _skip: boolean = false;
+
     constructor(public readonly subject: FlexSubject) {}
 
     get flexLayout() {
@@ -50,10 +54,13 @@ export default class FlexNode {
     }
 
     setFlexEnabled(v: boolean) {
-        if (v) {
-            this.enableFlex();
-        } else {
-            this.disableFlex();
+        // When skipped, defer enabling until no longer skipped.
+        if (!this._skip) {
+            if (v) {
+                this.enableFlex();
+            } else {
+                this.disableFlex();
+            }
         }
     }
 
@@ -65,11 +72,60 @@ export default class FlexNode {
     private disableFlex() {
         this.forceLayout();
         this.disableChildrenAsFlexItems();
-        this.restoreLayoutIfNonFlex();
+        this.updateEnabledFlag();
+    }
+
+    get skip(): boolean {
+        return this._skip;
+    }
+
+    set skip(value: boolean) {
+        if (this._skip !== value) {
+            if (value) {
+                this.setSkipped();
+            } else {
+                this.unsetSkipped();
+            }
+        }
+    }
+
+    private setSkipped() {
+        if (this.isFlexEnabled()) {
+            // We disable flex - and remember it - to simplify some cache-related stuff.
+            this.disableFlex();
+        }
+
+        const isFlexItemEnabled = this.isFlexItemEnabled();
+
+        this._skip = true;
+
+        if (isFlexItemEnabled) {
+            this.disableFlexItem();
+            this.enableChildrenAsFlexItems();
+        }
+    }
+
+    private unsetSkipped() {
+        this._skip = false;
+
+        const parentIsFlex = this.getParent()?.isFlexEnabled();
+
+        if (parentIsFlex) {
+            this.disableChildrenAsFlexItems();
+            this.enableFlexItem();
+        }
+
+        if (this._flex && this._flex.enabled) {
+            this.enableFlex();
+        }
     }
 
     isFlexEnabled() {
-        return this._flex ? this._flex.enabled : false;
+        return !this._skip && (this._flex ? this._flex.enabled : false);
+    }
+
+    isFlexItemEnabled() {
+        return !this._skip && (this.flexParent !== undefined);
     }
 
     isEnabled() {
@@ -87,32 +143,60 @@ export default class FlexNode {
         }
     }
 
-    private enableChildrenAsFlexItems() {
+    private getChildren(): FlexNode[] {
+        const results: FlexNode[] = [];
         const children = this.subject.getChildren();
+        if (children) {
+            const n = children.length;
+            for (let i = 0; i < n; i++) {
+                const child = children[i];
+                FlexNode.gatherChildren(child, results);
+            }
+        }
+        return results;
+    }
+
+    private static gatherChildren(child: FlexSubject, results: FlexNode[]) {
+        if (child.hasLayout() && child.getLayout().skip) {
+            const children = child.getChildren();
+            if (children) {
+                const n = children.length;
+                for (let i = 0; i < n; i++) {
+                    const child = children[i];
+                    this.gatherChildren(child, results);
+                }
+            }
+        } else {
+            results.push(child.getLayout());
+        }
+    }
+
+    private enableChildrenAsFlexItems() {
+        const children = this.getChildren();
         if (children) {
             for (let i = 0, n = children.length; i < n; i++) {
                 const child = children[i];
-                child.getLayout().enableFlexItem();
+                child.enableFlexItem();
             }
         }
     }
 
     private disableChildrenAsFlexItems() {
-        const children = this.subject.getChildren();
+        const children = this.getChildren();
         if (children) {
             for (let i = 0, n = children.length; i < n; i++) {
                 const child = children[i];
-                child.getLayout().disableFlexItem();
+                child.disableFlexItem();
             }
         }
     }
 
     private enableFlexItem() {
         this.ensureFlexItem();
-        const flexParent = this.subject!.getParent()!.getLayout();
+        const flexParent = this.getParent()!;
         this._flexItem!.setContainer(flexParent._flex);
         flexParent.changedContents();
-        this.restoreLayoutIfNonFlex();
+        this.updateEnabledFlag();
     }
 
     private disableFlexItem() {
@@ -121,10 +205,10 @@ export default class FlexNode {
         }
 
         // We keep the flexItem object because it may contain custom settings.
-        this.restoreLayoutIfNonFlex();
+        this.updateEnabledFlag();
     }
 
-    public restoreLayoutIfNonFlex() {
+    public updateEnabledFlag() {
         const enabled = this.isEnabled();
         if (this._enabled !== enabled) {
             if (!enabled) {
@@ -138,37 +222,39 @@ export default class FlexNode {
         this.restoreSubjectToNonFlex();
     }
 
-    isFlexItemEnabled() {
-        return this.flexParent !== undefined;
-    }
-
     private restoreSubjectToNonFlex() {
         const subject = this.subject;
         subject.setLayoutCoords(subject.getSourceX(), subject.getSourceY());
         subject.setLayoutDimensions(subject.getSourceW(), subject.getSourceH());
     }
 
-    setParent(from?: FlexSubject, to?: FlexSubject) {
-        if (from && from.getLayout().isFlexEnabled()) {
-            from.getLayout().changedChildren();
-        }
-
-        if (to && to.getLayout().isFlexEnabled()) {
-            this.enableFlexItem();
-            to.getLayout().changedChildren();
-        } else {
-            this.disableFlexItem();
-        }
-
-        this.restoreLayoutIfNonFlex();
+    private getParent(): FlexNode | undefined {
+        const activeParent = FlexNode.getActiveLayoutSubject(this.subject.getParent());
+        return activeParent ? activeParent.getLayout() : undefined;
     }
 
-    getParent(): FlexNode | undefined {
-        const parent = this.subject.getParent();
-        if (!parent) {
-            return undefined;
+    setParent(from?: FlexSubject, to?: FlexSubject) {
+        const fromNode = FlexNode.getActiveLayoutNode(from);
+        if (fromNode?.isFlexEnabled()) {
+            fromNode.changedChildren();
+        }
+
+        const toNode = FlexNode.getActiveLayoutNode(to);
+        if (toNode?.isFlexEnabled()) {
+            if (this._skip) {
+                this.enableChildrenAsFlexItems();
+            } else {
+                this.enableFlexItem();
+            }
+            toNode.changedChildren();
         } else {
-            return parent.getLayout();
+            if (fromNode?.isFlexEnabled()) {
+                if (!this._skip) {
+                    this.disableFlexItem();
+                } else {
+                    this.disableChildrenAsFlexItems();
+                }
+            }
         }
     }
 
@@ -177,9 +263,10 @@ export default class FlexNode {
             return undefined;
         }
 
-        const parent = this.subject.getParent();
-        if (parent && parent.getLayout().isFlexEnabled()) {
-            return parent.getLayout();
+        const parent = this.getParent();
+
+        if (parent && parent.isFlexEnabled()) {
+            return parent;
         }
         return undefined;
     }
@@ -200,13 +287,13 @@ export default class FlexNode {
 
     private getFlexItems(): FlexNode[] {
         const items = [];
-        const children = this.subject.getChildren();
+        const children = this.getChildren();
         if (children) {
             for (let i = 0, n = children.length; i < n; i++) {
                 const item = children[i];
-                if (item.isDisplayed()) {
-                    if (item.getLayout().isFlexItemEnabled()) {
-                        items.push(item.getLayout());
+                if (item.subject.isDisplayed()) {
+                    if (item.isFlexItemEnabled()) {
+                        items.push(item);
                     }
                 }
             }
@@ -575,5 +662,17 @@ export default class FlexNode {
 
     isLayoutRoot() {
         return this.isFlexEnabled() && !this.isFlexItemEnabled();
+    }
+
+    private static getActiveLayoutNode(subject: FlexSubject | undefined): FlexNode | undefined {
+        return this.getActiveLayoutSubject(subject)?.getLayout();
+    }
+
+    private static getActiveLayoutSubject(subject: FlexSubject | undefined): FlexSubject | undefined {
+        let current: FlexSubject | undefined = subject;
+        while (current && current.hasLayout() && current.getLayout().skip) {
+            current = current.getParent();
+        }
+        return current;
     }
 }
