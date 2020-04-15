@@ -387,7 +387,7 @@ export default class FlexTarget implements FlexSubject {
         if (this._parent !== p) {
             const prevParent = this._parent;
             this._parent = p;
-            if (this._layout || (p && p.getLayout().isFlexEnabled())) {
+            if (this._layout || FlexNode.getActiveLayoutNode(p)?.isFlexEnabled()) {
                 this.layout.setParent(prevParent, p);
             }
 

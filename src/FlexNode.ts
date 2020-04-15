@@ -670,11 +670,11 @@ export default class FlexNode {
         return this.isFlexEnabled() && !this.isFlexItemEnabled();
     }
 
-    private static getActiveLayoutNode(subject: FlexSubject | undefined): FlexNode | undefined {
+    static getActiveLayoutNode(subject: FlexSubject | undefined): FlexNode | undefined {
         return this.getActiveLayoutSubject(subject)?.getLayout();
     }
 
-    private static getActiveLayoutSubject(subject: FlexSubject | undefined): FlexSubject | undefined {
+    static getActiveLayoutSubject(subject: FlexSubject | undefined): FlexSubject | undefined {
         let current: FlexSubject | undefined = subject;
         while (current && current.hasLayout() && current.getLayout().skip) {
             current = current.getParent();

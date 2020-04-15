@@ -281,6 +281,51 @@ describe("tunnel", () => {
         });
     });
 
+    describe("add new flex item", () => {
+        let root: any;
+
+        const getRoot = () => root;
+        const addUpdateTest = (name: string, setup: any) => {
+            flexTestUtils.addAnnotatedUpdateTest(getRoot, name, setup);
+        };
+
+        let subject: Target;
+
+        before(() => {
+            const structure = {
+                r: [0, 0, 100, 100],
+                children: [
+                    {
+                        skipInLayout: true,
+                        r: [0, 0, 0, 0],
+                    },
+                ],
+            };
+
+            root = flexTestUtils.buildFlexFromStructure(structure);
+
+            subject = root.children[0];
+
+            root.flex = true;
+
+            const child = new Target();
+            Target.patch(root, { w: 100, h: 100, r: [0, 0, 100, 100] });
+
+            subject.addChild(child);
+        });
+
+        describe("initial", () => {
+            it("layouts", () => {
+                return flexTestUtils.validateAnnotatedFlex(root);
+            });
+        });
+
+        addUpdateTest("no changes", () => {
+            return { layouts: [] };
+        });
+
+    });
+
     describe("absolute", () => {
         let root: any;
 
