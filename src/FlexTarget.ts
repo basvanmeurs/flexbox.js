@@ -118,16 +118,6 @@ export default class FlexTarget implements FlexSubject {
         return this._optFlags & 12;
     }
 
-    private getLayoutParent() {
-        let current: FlexTarget = this.getParent()!;
-        while (current.skipInLayout) {
-            const parent = current.getParent();
-            if (!parent) return current;
-            current = parent;
-        }
-        return current;
-    }
-
     update() {
         // Parent width or height could have been changed while we are using relative dimension functions.
         // Width or height might have been changed, which affects the flexbox layout.
@@ -195,6 +185,16 @@ export default class FlexTarget implements FlexSubject {
         if (changedDims) {
             this.onDimensionsChanged();
         }
+    }
+
+    private getLayoutParent() {
+        let current: FlexTarget = this.getParent()!;
+        while (current.skipInLayout) {
+            const parent = current.getParent();
+            if (!parent) return current;
+            current = parent;
+        }
+        return current;
     }
 
     protected onChangedLayout() {
