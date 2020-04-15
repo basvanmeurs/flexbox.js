@@ -45,5 +45,4 @@ export default interface FlexSubject {
     getLayoutY(): number;
     getLayoutW(): number;
     getLayoutH(): number;
-
 }

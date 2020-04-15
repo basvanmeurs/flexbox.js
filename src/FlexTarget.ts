@@ -549,5 +549,4 @@ export default class FlexTarget implements FlexSubject {
     static isFunction(value: any) {
         return typeof value === "function";
     }
-
 }
