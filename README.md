@@ -59,6 +59,7 @@ changes and will only update the parts that actually need to be updated.
 | `visible` | `true,false` |  | Invisible elements are ignored |
 | `flex`| `FlexContainer` | | See below |
 | `flexItem`| `FlexItem` | | See below |
+| `skipInLayout`| `boolean` | | See below |
 
 ### Offsets
 The x and y properties act as relative positions to the positions calculated by the flexbox layout engine.
@@ -69,7 +70,14 @@ When the width or height is set to the number 0, it will **fit to the contents**
 ### Relative size
 Relative functions may be set for x, y, w and h. In that case, the property will be recalculated from the parent's
 layout width or height. This allows the user to use relative and calculated sizes.
- 
+
+### Skipping
+The `skipInLayout` property can be used to **skip** the node while layouting. In this mode, flex behaves as if this skipped node was replaced by it's own children. This means that if the node itself was a flex item of a flex container, it's children will now become flex items of that flex container. 
+
+It also affects relative layout function arguments (`w` or `h`). If the parent has  `skipInLayout` set to true, the grandparent's width and height will be used.
+
+This feature was built to enable another framework to expose a flex layoutable tree that's not be necessarily one-to-one with the layout tree.
+
 ## FlexTarget methods
 | Method | Description |
 | ------ | ----------- |
@@ -121,3 +129,4 @@ layout width or height. This allows the user to use relative and calculated size
 | `marginLeft` | `number` | `margin-left` | |
 | `marginBottom` | `number` | `margin-bottom` | |
 | `marginRight` | `number` | `margin-right` | |
+
