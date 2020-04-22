@@ -23,7 +23,6 @@
     },
     "files": [
         "lib/**",
-        "dist/**",
         "src/**"
     ],
     "homepage": "https://github.com/Planning-nl/flexbox.js#readme",
@@ -33,7 +32,6 @@
     "module": "lib/index.js",
     "jsdelivr": "dist/flexbox.js.js",
     "unpkg": "dist/flexbox.js.js",
-    "browser": "dist/flexbox.js.js",
     "repository": "github:Planning-nl/flexbox.js",
     "scripts": {
         "build": "tsc",
