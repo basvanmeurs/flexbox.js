@@ -1,7 +1,7 @@
-import getSpacing from "./spacing";
-import FlexLayouter from "./FlexLayouter";
+import { getSpacing } from "./spacing";
+import { FlexLayouter } from "./FlexLayouter";
 
-export default class ContentAligner {
+export class ContentAligner {
     private totalCrossAxisSize: number = 0;
 
     constructor(private layout: FlexLayouter) {

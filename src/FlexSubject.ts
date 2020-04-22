@@ -1,9 +1,9 @@
-import FlexNode from "./FlexNode";
+import { FlexNode } from "./FlexNode";
 
 export type RelativeWidthFunction = (w: number) => number;
 export type RelativeHeightFunction = (h: number) => number;
 
-export default interface FlexSubject {
+export interface FlexSubject {
     getChildren(): FlexSubject[] | undefined;
 
     getParent(): FlexSubject | undefined;

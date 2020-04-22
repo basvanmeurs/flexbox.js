@@ -1,11 +1,11 @@
-import FlexContainer from "./FlexContainer";
-import FlexItem from "./FlexItem";
-import FlexSubject from "./FlexSubject";
+import { FlexContainer } from "./FlexContainer";
+import { FlexItem } from "./FlexItem";
+import { FlexSubject } from "./FlexSubject";
 
 /**
  * This is the connection between the render tree with the layout tree of this flex container/item.
  */
-export default class FlexNode {
+export class FlexNode {
     /**
      * Possible values (only in case of container):
      * bit 0: has changed or contains items with changes

@@ -1,7 +1,7 @@
-import FlexContainer, { AlignItemsMode } from "./FlexContainer";
-import FlexNode from "./FlexNode";
+import { FlexContainer, AlignItemsMode } from "./FlexContainer";
+import { FlexNode } from "./FlexNode";
 
-export default class FlexItem {
+export class FlexItem {
     public static readonly SHRINK_AUTO = -1;
 
     public container?: FlexContainer;

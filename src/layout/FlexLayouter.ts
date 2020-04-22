@@ -1,13 +1,13 @@
-import ContentAligner from "./ContentAligner";
-import LineLayouter from "./LineLayouter";
-import ItemCoordinatesUpdater from "./ItemCoordinatesUpdater";
-import FlexContainer from "../FlexContainer";
-import FlexNode from "../FlexNode";
+import { ContentAligner } from "./ContentAligner";
+import { LineLayouter } from "./LineLayouter";
+import { ItemCoordinatesUpdater } from "./ItemCoordinatesUpdater";
+import { FlexContainer } from "../FlexContainer";
+import { FlexNode } from "../FlexNode";
 
 /**
  * Layouts a flex container (and descendants).
  */
-export default class FlexLayouter {
+export class FlexLayouter {
     private lineLayouter: LineLayouter = new LineLayouter(this);
 
     private resizingMainAxis: boolean = false;

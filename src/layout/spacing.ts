@@ -7,7 +7,7 @@ export type SpacingMode =
     | "space-evenly"
     | "stretch";
 
-export default function getSpacing(
+export function getSpacing(
     mode: SpacingMode,
     numberOfItems: number,
     remainingSpace: number,

@@ -1,6 +1,6 @@
-import LineLayout from "./LineLayout";
+import { LineLayout } from "./LineLayout";
 
-export default class SizeShrinker {
+export class SizeShrinker {
     private amountRemaining: number = 0;
     private shrunkSize: number = 0;
 

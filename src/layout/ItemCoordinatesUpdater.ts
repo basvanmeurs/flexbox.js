@@ -1,7 +1,7 @@
-import FlexLayouter from "./FlexLayouter";
-import FlexNode from "../FlexNode";
+import { FlexLayouter } from "./FlexLayouter";
+import { FlexNode } from "../FlexNode";
 
-export default class ItemCoordinatesUpdater {
+export class ItemCoordinatesUpdater {
     private readonly isReverse: boolean;
     private readonly horizontalPaddingOffset: number;
     private readonly verticalPaddingOffset: number;

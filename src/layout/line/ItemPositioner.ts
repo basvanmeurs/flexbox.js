@@ -1,7 +1,7 @@
-import getSpacing from "../spacing";
-import LineLayout from "./LineLayout";
+import { getSpacing } from "../spacing";
+import { LineLayout } from "./LineLayout";
 
-export default class ItemPositioner {
+export class ItemPositioner {
     constructor(private line: LineLayout) {}
 
     private get _layout() {

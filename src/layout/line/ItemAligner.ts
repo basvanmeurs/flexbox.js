@@ -1,9 +1,9 @@
-import LineLayout from "./LineLayout";
+import { LineLayout } from "./LineLayout";
 import { AlignItemsMode } from "../../FlexContainer";
-import FlexNode from "../../FlexNode";
-import FlexItem from "../../FlexItem";
+import { FlexNode } from "../../FlexNode";
+import { FlexItem } from "../../FlexItem";
 
-export default class ItemAligner {
+export class ItemAligner {
     private crossAxisLayoutSize: number = 0;
     private crossAxisLayoutOffset: number = 0;
     private alignItemsSetting?: AlignItemsMode;

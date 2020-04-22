@@ -1,13 +1,13 @@
-import FlexSubject, { RelativeHeightFunction, RelativeWidthFunction } from "./FlexSubject";
-import FlexNode from "./FlexNode";
-import FlexContainer from "./FlexContainer";
-import FlexItem from "./FlexItem";
+import { FlexSubject, RelativeHeightFunction, RelativeWidthFunction } from "./FlexSubject";
+import { FlexNode } from "./FlexNode";
+import { FlexContainer } from "./FlexContainer";
+import { FlexItem } from "./FlexItem";
 
 const COORDINATES_CHANGED = 2;
 const LAYOUT_CHANGED = 256;
 type CHANGE = typeof COORDINATES_CHANGED | typeof LAYOUT_CHANGED;
 
-export default class FlexTarget implements FlexSubject {
+export class FlexTarget implements FlexSubject {
     private _children: FlexTarget[] = [];
     private _parent?: FlexTarget;
 

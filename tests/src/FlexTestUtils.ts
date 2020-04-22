@@ -4,7 +4,7 @@ import { AnnotatedStructureMismatchCollector } from "./AnnotatedStructureMismatc
 import sinon = require("sinon");
 import chai = require("chai");
 
-export default class FlexTestUtils {
+export class FlexTestUtils {
     _convertToFlex(structure: any) {
         const root = this.buildFlexFromStructure(structure);
         root.update();

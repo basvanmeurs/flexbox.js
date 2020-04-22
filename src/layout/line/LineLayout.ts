@@ -1,11 +1,11 @@
-import SizeShrinker from "./SizeShrinker";
-import SizeGrower from "./SizeGrower";
-import ItemPositioner from "./ItemPositioner";
-import ItemAligner from "./ItemAligner";
-import FlexLayouter from "../FlexLayouter";
-import FlexNode from "../../FlexNode";
+import { SizeShrinker } from "./SizeShrinker";
+import { SizeGrower } from "./SizeGrower";
+import { ItemPositioner } from "./ItemPositioner";
+import { ItemAligner } from "./ItemAligner";
+import { FlexLayouter } from "../FlexLayouter";
+import { FlexNode } from "../../FlexNode";
 
-export default class LineLayout {
+export class LineLayout {
     public items: FlexNode[];
     private crossAxisMaxLayoutSize: number = 0;
 

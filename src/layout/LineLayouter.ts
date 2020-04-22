@@ -1,11 +1,11 @@
-import LineLayout from "./line/LineLayout";
-import FlexLayouter from "./FlexLayouter";
-import FlexNode from "../FlexNode";
+import { LineLayout } from "./line/LineLayout";
+import { FlexLayouter } from "./FlexLayouter";
+import { FlexNode } from "../FlexNode";
 
 /**
  * Distributes items over layout lines.
  */
-export default class LineLayouter {
+export class LineLayouter {
     private mainAxisMinSize?: number;
     private crossAxisMinSize?: number;
     private mainAxisContentSize: number = 0;

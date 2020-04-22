@@ -1,5 +1,5 @@
-import Layout from "./layout/FlexLayouter";
-import FlexNode from "./FlexNode";
+import { FlexLayouter } from "./layout/FlexLayouter";
+import { FlexNode } from "./FlexNode";
 import { SpacingMode } from "./layout/spacing";
 
 export type AlignItemsMode = "flex-start" | "flex-end" | "center" | "stretch";
@@ -16,11 +16,11 @@ export type AlignContentMode = SpacingMode;
 
 export type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
 
-export default class FlexContainer {
+export class FlexContainer {
     public horizontal: boolean = true;
     public reverse: boolean = false;
 
-    public layout: Layout = new Layout(this);
+    public layout: FlexLayouter = new FlexLayouter(this);
     private _wrap: boolean = false;
     private _alignItems: AlignItemsMode = "stretch";
     private _justifyContent: JustifyContentMode = "flex-start";

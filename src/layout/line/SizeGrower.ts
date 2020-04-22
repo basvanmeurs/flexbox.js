@@ -1,6 +1,6 @@
-import LineLayout from "./LineLayout";
+import { LineLayout } from "./LineLayout";
 
-export default class SizeGrower {
+export class SizeGrower {
     private amountRemaining: number = 0;
     private grownSize: number = 0;
 
