@@ -1,5 +1,5 @@
-import FlexTestUtils from "./src/FlexTestUtils";
-import Target from "./src/Target";
+import { FlexTestUtils } from "./src/FlexTestUtils";
+import { Target } from "./src/Target";
 
 const flexTestUtils = new FlexTestUtils();
 

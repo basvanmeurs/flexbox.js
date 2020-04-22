@@ -1,5 +1,5 @@
-import Target from "./Target";
-import FlexLayouter from "../../src/layout/FlexLayouter";
+import { Target } from "./Target";
+import { FlexLayouter } from "../../src/layout/FlexLayouter";
 import { AnnotatedStructureMismatchCollector } from "./AnnotatedStructureMismatchCollector";
 import sinon = require("sinon");
 import chai = require("chai");

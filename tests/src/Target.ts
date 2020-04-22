@@ -1,5 +1,5 @@
-import Utils from "./Utils";
-import FlexTarget from "../../src/FlexTarget";
+import { Utils } from "./Utils";
+import { FlexTarget } from "../../src";
 
 export class Target extends FlexTarget {
     // Will contain the expected layout result while unit testing.
