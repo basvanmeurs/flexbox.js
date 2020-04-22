@@ -23,6 +23,7 @@
     },
     "files": [
         "lib/**",
+        "dist/**",
         "src/**"
     ],
     "homepage": "https://github.com/Planning-nl/flexbox.js#readme",

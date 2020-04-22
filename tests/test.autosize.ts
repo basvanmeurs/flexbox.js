@@ -84,7 +84,7 @@ describe("layout", () => {
         });
     });
 
-    describe('stretching an autosized container', () => {
+    describe("stretching an autosized container", () => {
         flexTestUtils.addMochaTestForAnnotatedStructure("column: autosize w,h", {
             flex: { enabled: true, direction: "column" },
             w: 500,
@@ -92,33 +92,27 @@ describe("layout", () => {
             r: [0, 0, 500, 100],
             children: [
                 {
-                    flex: {enabled: true, direction: "column"},
+                    flex: { enabled: true, direction: "column" },
                     r: [0, 0, 500, 100],
-                    children: [
-                        {w: 100, h: 100, r: [0, 0, 100, 100]}
-                    ]
-                }
+                    children: [{ w: 100, h: 100, r: [0, 0, 100, 100] }],
+                },
             ],
         });
     });
 
-
-    describe('growing an autosized container', () => {
+    describe("growing an autosized container", () => {
         flexTestUtils.addMochaTestForAnnotatedStructure("column: autosize w,h", {
             flex: { enabled: true, direction: "row" },
             w: 500,
             r: [0, 0, 500, 100],
             children: [
                 {
-                    flex: {enabled: true},
-                    flexItem: {grow: 1},
+                    flex: { enabled: true },
+                    flexItem: { grow: 1 },
                     r: [0, 0, 500, 100],
-                    children: [
-                        {w: 100, h: 100, r: [0, 0, 100, 100]}
-                    ]
-                }
+                    children: [{ w: 100, h: 100, r: [0, 0, 100, 100] }],
+                },
             ],
         });
     });
-
 });
