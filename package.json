@@ -1,7 +1,7 @@
 {
     "name": "flexbox.js",
     "description": "Typescript flexbox-based layout engine",
-    "version": "1.0.12",
+    "version": "1.0.11",
     "author": "Planning.nl, Bas van Meurs",
     "bugs": {
         "url": "https://github.com/Planning-nl/flexbox.js/issues",
