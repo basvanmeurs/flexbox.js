@@ -7,7 +7,6 @@ export class ItemCoordinatesUpdater {
     private readonly verticalPaddingOffset: number;
 
     constructor(private layout: FlexLayouter) {
-        this.layout = layout;
         this.isReverse = this.flexContainer.reverse;
         this.horizontalPaddingOffset = this.flexContainer.node.getHorizontalPaddingOffset();
         this.verticalPaddingOffset = this.flexContainer.node.getVerticalPaddingOffset();
@@ -24,8 +23,11 @@ export class ItemCoordinatesUpdater {
             const updater = new ItemCoordinatesUpdater(parentFlex.layout);
             updater.finalizeItemAndChildren(this.flexContainer.node);
         } else {
-            this.finalizeRoot();
-            this.finalizeItems();
+            const validCache = this.validateItemCache(this.flexContainer.node);
+            if (!validCache) {
+                this.finalizeRoot();
+                this.finalizeItems();
+            }
         }
     }
 
