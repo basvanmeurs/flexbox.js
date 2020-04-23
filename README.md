@@ -1,5 +1,12 @@
 # Flexbox.js
 
+[![Build Status](https://img.shields.io/travis/Planning-nl/flexbox.js/master.svg)](https://travis-ci.org/Planning-nl/flexbox.js) 
+[![NPM Version](https://img.shields.io/npm/v/flexbox.js)](https://www.npmjs.com/package/flexbox.js)
+
+> Javascript flexbox layouting engine
+
+- [Example](https://github.com/Planning-nl/flexbox.js-example)
+
 Flexbox.js is a layout engine based on the flexbox CSS3 web layout model.
 
 It allows a layout tree to be constructed. This tree consists of nodes on which flex properties may be specified. The layout can be calculated by invoking the `update()` method on the flex root. After updating the layout, the layout results will be stored in `x, y, w, h` coordinates for the tree nodes.
