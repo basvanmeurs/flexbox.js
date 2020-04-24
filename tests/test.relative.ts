@@ -13,19 +13,19 @@ describe("relative", function () {
             r: [0, 0, 200, 400],
             children: [
                 {
-                    x: (w: number) => 0.1 * w,
-                    y: (h: number) => 0.15 * h,
-                    w: (w: number) => 0.3 * w,
-                    h: (h: number) => 0.2 * h + 5,
+                    funcX: (w: number) => 0.1 * w,
+                    funcY: (w: number, h: number) => 0.15 * h,
+                    funcW: (w: number) => 0.3 * w,
+                    funcH: (w: number, h: number) => 0.2 * h + 5,
                     r: [20, 60, 60, 85],
                 },
-                { w: (w: number) => 0.2 * w, h: (h: number) => 0.1 * h, r: [60, 0, 40, 40] },
+                { funcW: (w: number) => 0.2 * w, funcH: (w: number, h: number) => 0.1 * h, r: [60, 0, 40, 40] },
                 {
                     flexItem: { enabled: false },
-                    x: (w: number) => 0.2 * w,
-                    y: (h: number) => 0.2 * h,
-                    w: (w: number) => 0.2 * w,
-                    h: (h: number) => 0.2 * h + 5,
+                    funcX: (w: number) => 0.2 * w,
+                    funcY: (w: number, h: number) => 0.2 * h,
+                    funcW: (w: number) => 0.2 * w,
+                    funcH: (w: number, h: number) => 0.2 * h + 5,
                     r: [40, 80, 40, 85],
                 },
             ],
@@ -38,24 +38,24 @@ describe("relative", function () {
             children: [
                 {
                     flex: { enabled: true },
-                    w: (w: number) => w / 3,
-                    h: (h: number) => h / 2,
+                    funcW: (w: number) => w / 3,
+                    funcH: (w: number, h: number) => h / 2,
                     r: [0, 0, 200, 400],
                     children: [
                         {
-                            x: (w: number) => 0.1 * w,
-                            y: (h: number) => 0.15 * h,
-                            w: (w: number) => 0.3 * w,
-                            h: (h: number) => 0.2 * h + 5,
+                            funcX: (w: number) => 0.1 * w,
+                            funcY: (w: number, h: number) => 0.15 * h,
+                            funcW: (w: number) => 0.3 * w,
+                            funcH: (w: number, h: number) => 0.2 * h + 5,
                             r: [20, 60, 60, 85],
                         },
-                        { w: (w: number) => 0.2 * w, h: (h: number) => 0.1 * h, r: [60, 0, 40, 40] },
+                        { funcW: (w: number) => 0.2 * w, funcH: (w: number, h: number) => 0.1 * h, r: [60, 0, 40, 40] },
                         {
                             flexItem: { enabled: false },
-                            x: (w: number) => 0.2 * w,
-                            y: (h: number) => 0.2 * h,
-                            w: (w: number) => 0.2 * w,
-                            h: (h: number) => 0.2 * h + 5,
+                            funcX: (w: number) => 0.2 * w,
+                            funcY: (w: number, h: number) => 0.2 * h,
+                            funcW: (w: number) => 0.2 * w,
+                            funcH: (w: number, h: number) => 0.2 * h + 5,
                             r: [40, 80, 40, 85],
                         },
                     ],
@@ -74,8 +74,8 @@ describe("relative", function () {
                     flexItem: { grow: 1 },
                     r: [0, 0, 100, 100],
                     children: [
-                        { w: (w: number) => 0.3 * w, h: (h: number) => 0.2 * h, r: [0, 0, 0, 0] },
-                        { w: (w: number) => 0.2 * w, h: (h: number) => 0.1 * h, r: [0, 0, 0, 0] },
+                        { funcW: (w: number) => 0.3 * w, funcH: (w: number, h: number) => 0.2 * h, r: [0, 0, 0, 0] },
+                        { funcW: (w: number) => 0.2 * w, funcH: (w: number, h: number) => 0.1 * h, r: [0, 0, 0, 0] },
                     ],
                 },
             ],
@@ -102,7 +102,7 @@ describe("relative", function () {
                     r: [0, 0, 100, 300],
                     children: [
                         { w: 50, h: 100, r: [0, 0, 50, 300], flexItem: { alignSelf: "stretch" } },
-                        { w: 50, h: (h: number) => h * 2, r: [50, 0, 50, 600] },
+                        { w: 50, funcH: (w: number, h: number) => h * 2, r: [50, 0, 50, 600] },
                     ],
                 },
             ],
@@ -122,7 +122,7 @@ describe("relative", function () {
                     r: [0, 0, 100, 300],
                     children: [
                         { w: 100, h: 100, r: [0, 0, 100, 100] },
-                        { w: 100, h: (h: number) => h * 1.5, r: [0, 100, 100, 450] },
+                        { w: 100, funcH: (w: number, h: number) => h * 1.5, r: [0, 100, 100, 450] },
                     ],
                 },
             ],
@@ -142,7 +142,7 @@ describe("relative", function () {
                     r: [0, 0, 100, 300],
                     children: [
                         { w: 100, h: 100, r: [0, 0, 100, 100] },
-                        { w: 100, h: (h: number) => h * 0.1, r: [0, 100, 100, 200], flexItem: { grow: 1 } },
+                        { w: 100, funcH: (w: number, h: number) => h * 0.1, r: [0, 100, 100, 200], flexItem: { grow: 1 } },
                     ],
                 },
             ],
@@ -162,7 +162,7 @@ describe("relative", function () {
                     r: [0, 0, 100, 300],
                     children: [
                         { w: 100, h: 100, r: [0, 0, 100, 100] },
-                        { w: 100, h: (h: number) => h * 1.5, r: [0, 100, 100, 450], flexItem: { grow: 1 } },
+                        { w: 100, funcH: (w: number, h: number) => h * 1.5, r: [0, 100, 100, 450], flexItem: { grow: 1 } },
                     ],
                 },
             ],
@@ -186,27 +186,27 @@ describe("relative", function () {
                     h: 200,
                     children: [
                         {
-                            w: (w: number) => w * 0.5,
-                            h: (h: number) => h * 0.2,
+                            funcW: (w: number) => w * 0.5,
+                            funcH: (w: number, h: number) => h * 0.2,
                             flex: { enabled: true },
                             r: [0, 0, 400, 40],
                             children: [
                                 {
-                                    w: (w: number) => w * 0.4,
-                                    h: (h: number) => h * 0.2,
+                                    funcW: (w: number) => w * 0.4,
+                                    funcH: (w: number, h: number) => h * 0.2,
                                     flex: { enabled: true },
                                     r: [0, 0, 160, 8],
                                     children: [
                                         {
-                                            w: (w: number) => w * 0.5,
-                                            h: (h: number) => h * 0.5,
+                                            funcW: (w: number) => w * 0.5,
+                                            funcH: (w: number, h: number) => h * 0.5,
                                             flex: { enabled: true },
                                             r: [0, 0, 80, 4],
                                         },
                                         {
                                             flexItem: { enabled: false },
-                                            w: (w: number) => w * 0.5,
-                                            h: (h: number) => h * 0.5,
+                                            funcW: (w: number) => w * 0.5,
+                                            funcH: (w: number, h: number) => h * 0.5,
                                             x: 0,
                                             y: 0,
                                             r: [0, 0, 80, 4],
@@ -216,8 +216,8 @@ describe("relative", function () {
                             ],
                         },
                         {
-                            w: (w: number) => w * 0.2,
-                            h: (h: number) => h * 0.2,
+                            funcW: (w: number) => w * 0.2,
+                            funcH: (w: number, h: number) => h * 0.2,
                             flex: { enabled: true, padding: 10 },
                             r: [400, 0, 180, 60],
                             children: [
@@ -228,8 +228,8 @@ describe("relative", function () {
                                         { w: 10, h: 10, r: [0, 0, 10, 10] },
                                         {
                                             flexItem: { enabled: false },
-                                            w: (w: number) => w * 0.5,
-                                            h: (h: number) => h * 0.5,
+                                            funcW: (w: number) => w * 0.5,
+                                            funcH: (w: number, h: number) => h * 0.5,
                                             x: 0,
                                             y: 0,
                                             r: [0, 0, 5, 20],
@@ -267,15 +267,15 @@ describe("relative", function () {
             });
 
             addUpdateTest("update leaf", () => {
-                leaf.w = (w: number) => w * 0.2;
-                leaf.h = (h: number) => h * 1;
+                leaf.funcW = (w: number) => w * 0.2;
+                leaf.funcH = (w: number, h: number) => h * 1;
                 leaf.r = [0, 0, 32, 8];
                 return { layouts: [leaf, level2] };
             });
 
             addUpdateTest("update level2", () => {
-                level2.w = (w: number) => w * 0.8;
-                level2.h = (h: number) => h * 0.4;
+                level2.funcW = (w: number) => w * 0.8;
+                level2.funcH = (w: number, h: number) => h * 0.4;
                 level2.r = [0, 0, 320, 16];
                 leaf.r = [0, 0, 64, 16];
                 abs.r = [0, 0, 160, 8];
@@ -283,8 +283,8 @@ describe("relative", function () {
             });
 
             addUpdateTest("update level1", () => {
-                level1.w = (w: number) => w * 0.25;
-                level1.h = (h: number) => h * 0.1;
+                level1.funcW = (w: number) => w * 0.25;
+                level1.funcH = (w: number, h: number) => h * 0.1;
                 level1.r = [0, 0, 200, 20];
                 level2.r = [0, 0, 160, 8];
                 leaf.r = [0, 0, 32, 8];
@@ -308,20 +308,24 @@ describe("relative", function () {
             });
 
             addUpdateTest("convert siblingSub to funcW,funcH", () => {
-                siblingSub.x = (w: number) => w * 0.1;
-                siblingSub.y = (h: number) => h * 0.1;
-                siblingSub.w = (w: number) => w * 0.25;
-                siblingSub.h = (h: number) => h * 0.25;
+                siblingSub.funcX = (w: number) => w * 0.1;
+                siblingSub.funcY = (w: number, h: number) => h * 0.1;
+                siblingSub.funcW = (w: number) => w * 0.25;
+                siblingSub.funcH = (w: number, h: number) => h * 0.25;
                 siblingSub.r = [36, 20, 65, 25];
                 siblingAbs.r = [0, 0, 32.5, 12.5];
                 return { layouts: [sibling, siblingSub] };
             });
 
             addUpdateTest("convert siblingSub to fixed w,h", () => {
+                siblingSub.funcX = undefined;
                 siblingSub.x = 1;
                 siblingSub.y = 1;
+                siblingSub.funcY = undefined;
+                siblingSub.funcW = undefined;
                 siblingSub.w = 500;
                 siblingSub.h = 500;
+                siblingSub.funcH = undefined;
                 siblingSub.flexItem.shrink = 0;
                 siblingSub.r = [11, 11, 500, 500];
                 siblingAbs.r = [0, 0, 250, 250];
@@ -329,8 +333,8 @@ describe("relative", function () {
             });
 
             addUpdateTest("convert leaf to funcW", () => {
-                siblingLeaf.w = (w: number) => w * 0.1;
-                siblingLeaf.h = (h: number) => h * 0.2;
+                siblingLeaf.funcW = (w: number) => w * 0.1;
+                siblingLeaf.funcH = (w: number, h: number) => h * 0.2;
                 siblingLeaf.r = [0, 0, 50, 100];
                 return { layouts: [siblingSub] };
             });

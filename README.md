@@ -59,10 +59,14 @@ changes and will only update the parts that actually need to be updated.
 ## FlexTarget properties
 | Property | type | CSS equivalent | Notes |
 | -------- | ---- | -------------- |-----|
-| `x` | `number,(parentW: number => number)` |  | Offset |
-| `y` | `number,(parentH: number => number)` |  |  |
-| `w` | `number,(parentW: number => number)` |  | Size |
-| `h` | `number,(parentH: number => number)` |  |  |
+| `x` | `number` |  | Offset |
+| `funcX` | `(parentW: number, parentH: number)` |  | When set, overrules the `x` property and (re)calculates it from the parent dimensions |
+| `y` | `number` |  |  |
+| `funcY` | `(parentW: number, parentH: number)` |  | |
+| `w` | `number` |  | Size |
+| `funcW` | `(parentW: number, parentH: number)` |  |  |
+| `h` | `number` |  |  |
+| `funcH` | `(parentW: number, parentH: number)` |  |  |
 | `visible` | `true,false` |  | Invisible elements are ignored |
 | `flex`| `FlexContainer` | | See below |
 | `flexItem`| `FlexItem` | | See below |

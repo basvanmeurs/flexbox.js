@@ -13,8 +13,8 @@ describe("tunnel", () => {
             children: [
                 {
                     skipInLayout: true,
-                    w: (w: number) => w,
-                    h: (h: number) => h,
+                    funcW: (w: number) => w,
+                    funcH: (w: number, h: number) => h,
                     r: [0, 0, 770, 315],
                     children: [
                         {
@@ -27,7 +27,7 @@ describe("tunnel", () => {
                         { w: 150, h: 150, flexItem: { marginRight: 50 }, r: [570, 0, 150, 150] },
                     ],
                 },
-                { flexItem: { enabled: false }, w: (w: number) => w, h: (h: number) => h, r: [0, 0, 770, 315] },
+                { flexItem: { enabled: false }, funcW: (w: number) => w, funcH: (w: number, h: number) => h, r: [0, 0, 770, 315] },
             ],
         });
     });
@@ -40,14 +40,14 @@ describe("tunnel", () => {
             children: [
                 {
                     skipInLayout: true,
-                    w: (w: number) => w,
-                    h: (h: number) => h,
+                    funcW: (w: number) => w,
+                    funcH: (w: number, h: number) => h,
                     r: [0, 0, 770, 315],
                     children: [
                         {
                             skipInLayout: true,
-                            w: (w: number) => w,
-                            h: (h: number) => h,
+                            funcW: (w: number) => w,
+                            funcH: (w: number, h: number) => h,
                             r: [0, 0, 770, 315],
                             children: [
                                 {
@@ -67,7 +67,7 @@ describe("tunnel", () => {
                         },
                     ],
                 },
-                { flexItem: { enabled: false }, w: (w: number) => w, h: (h: number) => h, r: [0, 0, 770, 315] },
+                { flexItem: { enabled: false }, funcW: (w: number) => w, funcH: (w: number, h: number) => h, r: [0, 0, 770, 315] },
             ],
         });
     });
@@ -94,14 +94,14 @@ describe("tunnel", () => {
                 children: [
                     {
                         skipInLayout: true,
-                        w: (w: number) => w,
-                        h: (h: number) => h,
+                        funcW: (w: number) => w,
+                        funcH: (w: number, h: number) => h,
                         r: [0, 0, 770, 315],
                         children: [
                             {
                                 skipInLayout: true,
-                                w: (w: number) => w,
-                                h: (h: number) => h,
+                                funcW: (w: number) => w,
+                                funcH: (w: number, h: number) => h,
                                 r: [0, 0, 770, 315],
                                 children: [
                                     {
@@ -121,7 +121,7 @@ describe("tunnel", () => {
                             },
                         ],
                     },
-                    { flexItem: { enabled: false }, w: (w: number) => w, h: (h: number) => h, r: [0, 0, 770, 315] },
+                    { flexItem: { enabled: false }, funcW: (w: number) => w, funcH: (w: number, h: number) => h, r: [0, 0, 770, 315] },
                 ],
             };
             root = flexTestUtils.buildFlexFromStructure(structure);
@@ -348,8 +348,8 @@ describe("tunnel", () => {
                         r: [0, 0, 0, 0],
                         children: [
                             {
-                                w: (w: number) => w,
-                                h: (h: number) => h,
+                                funcW: (w: number) => w,
+                                funcH: (w: number, h: number) => h,
                                 r: [0, 0, 1000, 1000],
                             },
                         ],

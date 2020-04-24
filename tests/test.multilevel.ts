@@ -373,8 +373,8 @@ describe("layout", () => {
                 {
                     flex: { enabled: true, direction: "column" },
                     flexItem: { enabled: false },
-                    w: (w: number) => w * 0.5,
-                    h: (h: number) => h * 0.5,
+                    funcW: (w: number) => w * 0.5,
+                    funcH: (w: number, h: number) => h * 0.5,
                     r: [0, 0, 260, 210],
                     children: [
                         { w: 100, h: 100, r: [0, 0, 100, 100] },

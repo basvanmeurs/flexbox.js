@@ -1,7 +1,6 @@
 import { FlexNode } from "./FlexNode";
 
-export type RelativeWidthFunction = (w: number) => number;
-export type RelativeHeightFunction = (h: number) => number;
+export type RelativeFunction = (w: number, h: number) => number;
 
 export interface FlexSubject {
     getChildren(): FlexSubject[] | undefined;
@@ -33,10 +32,10 @@ export interface FlexSubject {
     getSourceH(): number;
 
     // Relative functions for the layout dimensions.
-    getSourceFuncX(): RelativeWidthFunction | undefined;
-    getSourceFuncY(): RelativeHeightFunction | undefined;
-    getSourceFuncW(): RelativeWidthFunction | undefined;
-    getSourceFuncH(): RelativeHeightFunction | undefined;
+    getSourceFuncX(): RelativeFunction | undefined;
+    getSourceFuncY(): RelativeFunction | undefined;
+    getSourceFuncW(): RelativeFunction | undefined;
+    getSourceFuncH(): RelativeFunction | undefined;
 
     // Last layout results.
     // Flexbox engine will be able to use cache if the layout dimensions were not changed since last frame.

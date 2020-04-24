@@ -348,7 +348,7 @@ describe("layout", () => {
                     r: [0, 0, 400, 0],
                     children: [
                         {
-                            w: (w: number) => w,
+                            funcW: (w: number) => w,
                             h: 0,
                             flex: { enabled: true, wrap: true },
                             r: [0, 0, 400, 200],

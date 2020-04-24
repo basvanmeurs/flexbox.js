@@ -1,4 +1,4 @@
-import { FlexSubject, RelativeHeightFunction, RelativeWidthFunction } from "./FlexSubject";
+import { FlexSubject, RelativeFunction } from "./FlexSubject";
 import { FlexNode } from "./FlexNode";
 import { FlexContainer } from "./FlexContainer";
 import { FlexItem } from "./FlexItem";
@@ -25,10 +25,10 @@ export class FlexTarget implements FlexSubject {
 
     private _optFlags: number = 0;
 
-    private _funcX?: RelativeWidthFunction;
-    private _funcY?: RelativeHeightFunction;
-    private _funcW?: RelativeWidthFunction;
-    private _funcH?: RelativeHeightFunction;
+    private _funcX?: RelativeFunction;
+    private _funcY?: RelativeFunction;
+    private _funcW?: RelativeFunction;
+    private _funcH?: RelativeFunction;
 
     private _visible: boolean = true;
 
@@ -152,14 +152,14 @@ export class FlexTarget implements FlexSubject {
     private applyRelativeFunctions() {
         const layoutParent = this.getLayoutParent()!;
         if (this._optFlags & 1) {
-            const x = this._funcX!(layoutParent.getLayoutW());
+            const x = this._funcX!(layoutParent.getLayoutW(), layoutParent.getLayoutH());
             if (x !== this._x) {
                 this._x = x;
                 this.flags |= COORDINATES_CHANGED;
             }
         }
         if (this._optFlags & COORDINATES_CHANGED) {
-            const y = this._funcY!(layoutParent.getLayoutH());
+            const y = this._funcY!(layoutParent.getLayoutW(), layoutParent.getLayoutH());
             if (y !== this._y) {
                 this._y = y;
                 this.flags |= COORDINATES_CHANGED;
@@ -168,14 +168,14 @@ export class FlexTarget implements FlexSubject {
 
         let changedDims = false;
         if (this._optFlags & 4) {
-            const w = this._funcW!(layoutParent.getLayoutW());
+            const w = this._funcW!(layoutParent.getLayoutW(), layoutParent.getLayoutH());
             if (w !== this._w) {
                 this._w = w;
                 changedDims = true;
             }
         }
         if (this._optFlags & 8) {
-            const h = this._funcH!(layoutParent.getLayoutH());
+            const h = this._funcH!(layoutParent.getLayoutW(), layoutParent.getLayoutH());
             if (h !== this._h) {
                 this._h = h;
                 changedDims = true;
@@ -202,23 +202,18 @@ export class FlexTarget implements FlexSubject {
     }
 
     get x() {
-        if (this._funcX) {
-            return this._funcX;
-        } else {
-            return this._sx;
-        }
+        return this._sx;
     }
 
-    set x(v: number | RelativeWidthFunction) {
-        if (FlexTarget.isFunction(v)) {
-            this.funcX = v as RelativeWidthFunction;
-        } else {
-            this._disableFuncX();
-            const dx = (v as number) - this._sx;
+    set x(v: number) {
+        const dx = (v as number) - this._sx;
+        if (dx) {
             this._sx = v as number;
 
-            // No recalc is necessary because the layout offset can be updated directly.
-            this._x += dx;
+            if (!this._funcX) {
+                // No recalc is necessary because the layout offset can be updated directly.
+                this._x += dx;
+            }
         }
     }
 
@@ -226,11 +221,14 @@ export class FlexTarget implements FlexSubject {
         return this._funcX;
     }
 
-    set funcX(v: RelativeWidthFunction | undefined) {
+    set funcX(v: RelativeFunction | undefined) {
         if (this._funcX !== v) {
-            this._optFlags |= 1;
-            this._funcX = v;
-            this._x = 0;
+            if (v) {
+                this._optFlags |= 1;
+                this._funcX = v;
+            } else {
+                this.disableFuncX();
+            }
             if (this.hasFlexLayout()) {
                 this._layout!.forceLayout();
             } else {
@@ -239,28 +237,21 @@ export class FlexTarget implements FlexSubject {
         }
     }
 
-    private _disableFuncX() {
+    private disableFuncX() {
         this._optFlags = this._optFlags & (0xffff - 1);
         this._funcX = undefined;
     }
 
     get y() {
-        if (this._funcY) {
-            return this._funcY;
-        } else {
-            return this._sy;
-        }
+        return this._sy;
     }
 
     set y(v) {
-        if (FlexTarget.isFunction(v)) {
-            this.funcY = v as RelativeHeightFunction;
-        } else {
-            this._disableFuncY();
-            const dy = (v as number) - this._sy;
-            if (dy) {
-                this._sy = v as number;
-
+        const dy = (v as number) - this._sy;
+        if (dy) {
+            this._sy = v as number;
+            
+            if (!this._funcY) {
                 // No recalc is necessary because the layout offset can be updated directly.
                 this._y += dy;
             }
@@ -271,11 +262,14 @@ export class FlexTarget implements FlexSubject {
         return this._funcY;
     }
 
-    set funcY(v: RelativeHeightFunction | undefined) {
+    set funcY(v: RelativeFunction | undefined) {
         if (this._funcY !== v) {
-            this._optFlags |= 2;
-            this._funcY = v;
-            this._y = 0;
+            if (v) {
+                this._optFlags |= 2;
+                this._funcY = v;
+            } else {
+                this.disableFuncY();
+            }
             if (this.hasFlexLayout()) {
                 this._layout!.forceLayout();
             } else {
@@ -284,53 +278,23 @@ export class FlexTarget implements FlexSubject {
         }
     }
 
-    private _disableFuncY() {
+    private disableFuncY() {
         this._optFlags = this._optFlags & (0xffff - 2);
         this._funcY = undefined;
     }
 
     get w() {
-        if (this._funcW) {
-            return this._funcW;
-        } else {
-            return this._sw;
-        }
+        return this._sw;
     }
 
-    set w(v: number | RelativeWidthFunction) {
-        if (FlexTarget.isFunction(v)) {
-            this.funcW = v as RelativeWidthFunction;
-        } else {
-            this.disableFuncW();
-            if (this._sw !== v) {
-                this._sw = v as number;
-                if (this.hasFlexLayout()) {
-                    this._layout!.updatedSourceW();
-                } else {
-                    this._w = v as number;
-                    this.onDimensionsChanged();
-                }
-            }
-        }
-    }
-
-    get h() {
-        return this._h;
-    }
-
-    set h(v: number | RelativeHeightFunction) {
-        if (FlexTarget.isFunction(v)) {
-            this.funcH = v as RelativeHeightFunction;
-        } else {
-            this.disableFuncH();
-            if (this._sh !== v) {
-                this._sh = v as number;
-                if (this.hasFlexLayout()) {
-                    this._layout!.updatedSourceH();
-                } else {
-                    this._h = v as number;
-                    this.onDimensionsChanged();
-                }
+    set w(v: number) {
+        if (this._sw !== v) {
+            this._sw = v as number;
+            if (this.hasFlexLayout()) {
+                this._layout!.updatedSourceW();
+            } else {
+                this._w = v as number;
+                this.onDimensionsChanged();
             }
         }
     }
@@ -339,14 +303,17 @@ export class FlexTarget implements FlexSubject {
         return this._funcW;
     }
 
-    set funcW(v: RelativeWidthFunction | undefined) {
+    set funcW(v: RelativeFunction | undefined) {
         if (this._funcW !== v) {
-            this._optFlags |= 4;
-            this._funcW = v;
+            if (v) {
+                this._optFlags |= 4;
+                this._funcW = v;
+            } else {
+                this.disableFuncW();
+            }
             if (this.hasFlexLayout()) {
                 this.layout.updatedSourceW();
             } else {
-                this._w = 0;
                 this.onDimensionsChanged();
             }
         }
@@ -357,18 +324,37 @@ export class FlexTarget implements FlexSubject {
         this._funcW = undefined;
     }
 
+    get h() {
+        return this._sh;
+    }
+
+    set h(v: number) {
+        if (this._sh !== v) {
+            this._sh = v as number;
+            if (this.hasFlexLayout()) {
+                this._layout!.updatedSourceH();
+            } else {
+                this._h = v as number;
+                this.onDimensionsChanged();
+            }
+        }
+    }
+
     getSourceFuncH() {
         return this._funcH;
     }
 
-    set funcH(v: RelativeHeightFunction | undefined) {
+    set funcH(v: RelativeFunction | undefined) {
         if (this._funcH !== v) {
-            this._optFlags |= 8;
-            this._funcH = v;
+            if (v) {
+                this._optFlags |= 8;
+                this._funcH = v;
+            } else {
+                this.disableFuncH();
+            }
             if (this.hasFlexLayout()) {
                 this.layout.updatedSourceH();
             } else {
-                this._h = 0;
                 this.onDimensionsChanged();
             }
         }
