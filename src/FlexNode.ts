@@ -322,10 +322,16 @@ export class FlexNode {
         let sourceX = subject.getSourceX();
         let sourceY = subject.getSourceY();
         if (this.sourceFuncX) {
-            sourceX = this.sourceFuncX(this.getParentAxisSizeWithPadding(true), this.getParentAxisSizeWithPadding(false));
+            sourceX = this.sourceFuncX(
+                this.getParentAxisSizeWithPadding(true),
+                this.getParentAxisSizeWithPadding(false),
+            );
         }
         if (this.sourceFuncY) {
-            sourceY = this.sourceFuncY(this.getParentAxisSizeWithPadding(true), this.getParentAxisSizeWithPadding(false));
+            sourceY = this.sourceFuncY(
+                this.getParentAxisSizeWithPadding(true),
+                this.getParentAxisSizeWithPadding(false),
+            );
         }
 
         if (this.isFlexItemEnabled()) {
@@ -553,7 +559,10 @@ export class FlexNode {
         if (horizontal) {
             if (this.sourceFuncW) {
                 if (this.allowRelAxisSizeFunction(true)) {
-                    return this.sourceFuncW(this.getParentAxisSizeWithPadding(true), this.getParentAxisSizeWithPadding(false));
+                    return this.sourceFuncW(
+                        this.getParentAxisSizeWithPadding(true),
+                        this.getParentAxisSizeWithPadding(false),
+                    );
                 } else {
                     return 0;
                 }
@@ -563,7 +572,10 @@ export class FlexNode {
         } else {
             if (this.sourceFuncH) {
                 if (this.allowRelAxisSizeFunction(false)) {
-                    return this.sourceFuncH(this.getParentAxisSizeWithPadding(true), this.getParentAxisSizeWithPadding(false));
+                    return this.sourceFuncH(
+                        this.getParentAxisSizeWithPadding(true),
+                        this.getParentAxisSizeWithPadding(false),
+                    );
                 } else {
                     return 0;
                 }

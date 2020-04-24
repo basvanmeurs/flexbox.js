@@ -142,7 +142,12 @@ describe("relative", function () {
                     r: [0, 0, 100, 300],
                     children: [
                         { w: 100, h: 100, r: [0, 0, 100, 100] },
-                        { w: 100, funcH: (w: number, h: number) => h * 0.1, r: [0, 100, 100, 200], flexItem: { grow: 1 } },
+                        {
+                            w: 100,
+                            funcH: (w: number, h: number) => h * 0.1,
+                            r: [0, 100, 100, 200],
+                            flexItem: { grow: 1 },
+                        },
                     ],
                 },
             ],
@@ -162,7 +167,12 @@ describe("relative", function () {
                     r: [0, 0, 100, 300],
                     children: [
                         { w: 100, h: 100, r: [0, 0, 100, 100] },
-                        { w: 100, funcH: (w: number, h: number) => h * 1.5, r: [0, 100, 100, 450], flexItem: { grow: 1 } },
+                        {
+                            w: 100,
+                            funcH: (w: number, h: number) => h * 1.5,
+                            r: [0, 100, 100, 450],
+                            flexItem: { grow: 1 },
+                        },
                     ],
                 },
             ],

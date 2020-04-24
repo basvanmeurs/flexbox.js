@@ -250,7 +250,7 @@ export class FlexTarget implements FlexSubject {
         const dy = (v as number) - this._sy;
         if (dy) {
             this._sy = v as number;
-            
+
             if (!this._funcY) {
                 // No recalc is necessary because the layout offset can be updated directly.
                 this._y += dy;
