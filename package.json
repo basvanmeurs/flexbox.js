@@ -47,6 +47,5 @@
         "test": "./node_modules/mocha/bin/mocha --require ts-node/register tests/test.*.ts",
         "version": "npm run lint"
     },
-    "type": "module",
     "types": "lib/index.d.ts"
 }
