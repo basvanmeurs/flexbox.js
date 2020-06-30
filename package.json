@@ -22,32 +22,33 @@
         "typescript": "^3.8.3"
     },
     "files": [
-        "lib/**",
+        "cjs/**",
+        "esm/**",
         "dist/**",
         "src/**"
     ],
     "homepage": "https://github.com/Planning-nl/flexbox.js#readme",
     "keywords": [],
     "license": "apache",
-    "main": "lib/index.js",
-    "module": "lib/index.js",
+    "main": "cjs/index.js",
+    "module": "esm/index.js",
     "jsdelivr": "dist/flexbox.js.js",
     "unpkg": "dist/flexbox.js.js",
     "repository": "github:Planning-nl/flexbox.js",
     "scripts": {
-        "build": "tsc",
-        "watch_build": "tsc --watch",
-        "bundle": "NODE_ENV=production webpack --progress --display-error-details",
-        "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
+        "build": "npm run build:cjs & npm run build:esm & npm run build:umd",
+        "build:cjs": "tsc --module commonjs --outDir cjs",
+        "build:esm": "tsc --module es2015 --outDir esm",
+        "build:umd": "NODE_ENV=production webpack --progress --display-error-details",
         "lint": "eslint -c .eslintrc.js 'src/**/*.ts'",
         "lint:fix": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
-        "prepublish": "npm run bundle",
+        "prepublish": "npm run build",
         "prepublishOnly": "npm test",
         "test": "./node_modules/mocha/bin/mocha --require ts-node/register tests/test.*.ts",
         "version": "npm run lint"
     },
-    "types": "lib/index.d.ts",
+    "types": "cjs/index.d.ts",
     "engines": {
         "node": ">=8.0.0"
     }
