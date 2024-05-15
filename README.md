@@ -5,7 +5,7 @@
 
 > Javascript flexbox layouting engine
 
-- [Example](https://github.com/Planning-nl/flexbox.js-example)
+- [Example](https://github.com/basvanmeurs/flexbox.js-example)
 
 Flexbox.js is a layout engine based on the flexbox CSS3 web layout model.
 
@@ -13,7 +13,7 @@ It allows a layout tree to be constructed. This tree consists of nodes on which 
 
 ## Usage
 This module was designed to be used by other frameworks that require some form of layouting. It was originally developed
-for the [tree2d](https://github.com/Planning-nl/tree2d/) framework.
+for the [tree2d](https://github.com/basvanmeurs/tree2d/) framework.
 
 This package contains the FlexTarget class, which can be used directly to construct a layout tree. Usually this will be sufficient. In other cases, where a *deeper* integration is required, it is also possible to provide your own implementation of FlexTarget by implementing the FlexSubject interface. The latter is used in the tree2d framework to be able to implement advanced performance optimizations.
 
