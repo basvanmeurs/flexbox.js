@@ -7,7 +7,7 @@
 
 - [Example](https://github.com/basvanmeurs/flexbox.js-example)
 
-Flexbox.js is a layout engine based on the flexbox CSS3 web layout model.
+Flexbox.js is a javascript implementation for the flexbox CSS3 web layout model.
 
 It allows a layout tree to be constructed. This tree consists of nodes on which flex properties may be specified. The layout can be calculated by invoking the `update()` method on the flex root. After updating the layout, the layout results will be stored in `x, y, w, h` coordinates for the tree nodes.
 
