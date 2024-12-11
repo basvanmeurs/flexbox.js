@@ -11,6 +11,14 @@ Flexbox.js is a javascript implementation for the flexbox CSS3 web layout model.
 
 It allows a layout tree to be constructed. This tree consists of nodes on which flex properties may be specified. The layout can be calculated by invoking the `update()` method on the flex root. After updating the layout, the layout results will be stored in `x, y, w, h` coordinates for the tree nodes.
 
+## Installation
+
+To install the `flexbox.js` library, you can use npm:
+
+```sh
+npm install flexbox.js
+```
+
 ## Usage
 This module was designed to be used by other frameworks that require some form of layouting. It was originally developed
 for the [tree2d](https://github.com/basvanmeurs/tree2d/) framework.
@@ -141,3 +149,15 @@ This feature was built to enable another framework to expose a flex layoutable t
 | `marginBottom` | `number` | `margin-bottom` | |
 | `marginRight` | `number` | `margin-right` | |
 
+## Contributing
+
+We welcome contributions to the `flexbox.js` library! If you would like to contribute, please follow these guidelines:
+
+1. Fork the repository and create a new branch for your feature or bugfix.
+2. Write tests for your changes.
+3. Ensure all tests pass by running `npm test`.
+4. Submit a pull request with a clear description of your changes.
+
+## License
+
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for more information.
